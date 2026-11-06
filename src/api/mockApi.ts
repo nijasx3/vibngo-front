@@ -6,6 +6,7 @@ import rome from '../mocks/rome.json';
 import community from '../mocks/community.json';
 import itineraryTpl from '../mocks/itinerary.json';
 import chatbot from '../mocks/chatbot.json';
+import user from '../mocks/user.json';
 import type { Country, Item, Question } from '../types';
 import { scoreProfile } from '../lib/scoring';
 
@@ -24,6 +25,7 @@ export const catalog = {
 export const community_ = community;
 export const itineraryTemplate = itineraryTpl;
 export const chatbotScript = chatbot;
+export const userSeed = user;
 export const getQuestions = () => wait(questions as Question[], 0);
 export const computeProfile = (answers: string[]) => wait(scoreProfile(questions as Question[], answers), 900);
 export const generateItinerary = () => wait(itineraryTpl, 2400);

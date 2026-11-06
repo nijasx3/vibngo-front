@@ -14,13 +14,11 @@ import Create from './pages/Create';
 import Itinerary from './pages/Itinerary';
 import Notebook from './pages/Notebook';
 import Chat from './pages/Chat';
-import Reset from './pages/Reset';
 
 export default function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/reset" element={<Reset />} />
         <Route element={<Layout />}>
           <Route path="/signup" element={<Signup />} />
           <Route path="/quiz" element={<Quiz />} />

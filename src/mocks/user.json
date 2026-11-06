@@ -1,0 +1,20 @@
+{
+  "name": "",
+  "traveler_type": null,
+  "current_itinerary": null,
+  "like": [],
+  "parameters": {
+    "geo": true,
+    "notif": true,
+    "sharePosition": true,
+    "profileVisible": true,
+    "reminders": true,
+    "friendMessages": true
+  },
+  "friends": [
+    "paul",
+    "marie",
+    "sarah",
+    "lucas"
+  ]
+}

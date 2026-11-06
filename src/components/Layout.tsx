@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Bot, Compass, House, Plus, User, Users } from 'lucide-react';
 import { cx } from './ui';
 import { useStore } from '../state/store';
@@ -9,15 +9,18 @@ const HIDE_FAB = ['/signup', '/quiz', '/result', '/chat', '/create'];
 
 function NavBar() {
   const link = (to: string, label: string, Icon: typeof House) => (
-    <NavLink to={to} className={({ isActive }) => cx('flex min-h-12 w-14 flex-col items-center justify-center gap-0.5', isActive ? 'text-orange' : 'text-anthracite/60')}>
-      <Icon size={22} strokeWidth={2} /><span className="text-[10px] font-semibold">{label}</span>
+    <NavLink to={to} className={({ isActive }) => cx('flex min-h-14 min-w-0 flex-col items-center justify-center gap-0.5', isActive ? 'text-orange' : 'text-anthracite/60')}>
+      <Icon size={22} strokeWidth={2} /><span className="max-w-full truncate text-[10px] font-semibold">{label}</span>
     </NavLink>
   );
+  // Grille à 5 colonnes égales : le bouton « + » est exactement au centre, quelle que soit la largeur de l'écran.
   return (
-    <nav aria-label="Navigation principale" className="flex shrink-0 items-center justify-between border-t border-line bg-white px-3 pb-[max(env(safe-area-inset-bottom),6px)] pt-1.5">
+    <nav aria-label="Navigation principale" className="relative z-30 grid shrink-0 grid-cols-5 items-center border-t border-line bg-white px-1 pb-[max(env(safe-area-inset-bottom),6px)] pt-1">
       {link('/home', 'Accueil', House)}
       {link('/explore', 'Explorer', Compass)}
-      <NavLink to="/create" aria-label="Créer un itinéraire" className="-mt-5 flex h-12 w-12 items-center justify-center rounded-full bg-orange text-white shadow-lg shadow-orange/40 active:bg-orange-dark"><Plus size={26} /></NavLink>
+      <div className="flex justify-center">
+        <NavLink to="/create" aria-label="Créer un itinéraire" className="relative z-10 -mt-7 flex h-14 w-14 items-center justify-center rounded-full border-4 border-white bg-orange text-white shadow-lg shadow-orange/40 active:bg-orange-dark"><Plus size={26} /></NavLink>
+      </div>
       {link('/community', 'Communauté', Users)}
       {link('/profile', 'Profil', User)}
     </nav>
@@ -43,10 +46,10 @@ export default function Layout() {
   const showNav = !HIDE_NAV.some((p) => pathname.startsWith(p));
   const showFab = !HIDE_FAB.some((p) => pathname.startsWith(p));
 
-  useEffect(() => {
-    if (!user && !['/signup'].includes(pathname)) nav('/signup', { replace: true });
-    else if (user && !user.traveler_type && !['/quiz', '/result'].includes(pathname) && pathname !== '/signup') nav('/quiz', { replace: true });
-  }, [user, pathname, nav]);
+  // Gardes d'accès : sans utilisateur (ex. après un rafraîchissement) on revient à l'inscription,
+  // sans jamais afficher la page demandée.
+  if (!user && pathname !== '/signup') return <Navigate to="/signup" replace />;
+  if (user && !user.traveler_type && !['/signup', '/quiz', '/result'].includes(pathname)) return <Navigate to="/quiz" replace />;
 
   return (
     <div className="flex min-h-full items-center justify-center bg-creme sm:p-6">
@@ -58,7 +61,7 @@ export default function Layout() {
         </main>
         {showFab && (
           <button aria-label="Ouvrir VibnGO Assistant" onClick={() => nav('/chat')}
-            className="absolute bottom-[78px] right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-brun text-white shadow-xl shadow-brun/30 active:scale-95">
+            className="absolute bottom-[84px] right-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-brun text-white shadow-xl shadow-brun/30 active:scale-95">
             <Bot size={28} />
           </button>
         )}
