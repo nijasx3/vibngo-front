@@ -1,0 +1,94 @@
+[
+  {
+    "id": "q1",
+    "dimension": "urbanite",
+    "text": "Quel est votre environnement de voyage préféré ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "Grandes villes dynamiques"
+      },
+      {
+        "key": "B",
+        "label": "Villes avec accès à des espaces calmes"
+      },
+      {
+        "key": "C",
+        "label": "Petites villes ou villages"
+      },
+      {
+        "key": "D",
+        "label": "Environnements naturels"
+      }
+    ]
+  },
+  {
+    "id": "q3",
+    "dimension": "intensite",
+    "text": "Quel est votre rythme de voyage idéal ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "Journées très remplies"
+      },
+      {
+        "key": "B",
+        "label": "Plusieurs activités avec quelques pauses"
+      },
+      {
+        "key": "C",
+        "label": "Quelques activités avec beaucoup de temps libre"
+      },
+      {
+        "key": "D",
+        "label": "Séjour très tranquille"
+      }
+    ]
+  },
+  {
+    "id": "q5",
+    "dimension": "planification",
+    "text": "Comment préférez-vous organiser votre séjour ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "Planning détaillé à l'avance"
+      },
+      {
+        "key": "B",
+        "label": "Principales activités réservées"
+      },
+      {
+        "key": "C",
+        "label": "Organisation au jour le jour"
+      },
+      {
+        "key": "D",
+        "label": "Je décide principalement sur place"
+      }
+    ]
+  },
+  {
+    "id": "q7",
+    "dimension": "social",
+    "text": "Quelle place les rencontres occupent-elles pendant vos voyages ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "J'aime rencontrer beaucoup de personnes"
+      },
+      {
+        "key": "B",
+        "label": "Je suis ouvert aux rencontres"
+      },
+      {
+        "key": "C",
+        "label": "Je préfère rester avec mes proches"
+      },
+      {
+        "key": "D",
+        "label": "Je privilégie les moments seul"
+      }
+    ]
+  }
+]
