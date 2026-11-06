@@ -1,0 +1,96 @@
+{
+  "friends": [
+    {
+      "id": "paul",
+      "name": "Paul",
+      "status": "À Rome"
+    },
+    {
+      "id": "marie",
+      "name": "Marie",
+      "status": "En ligne"
+    },
+    {
+      "id": "sarah",
+      "name": "Sarah",
+      "status": "Hors ligne"
+    },
+    {
+      "id": "lucas",
+      "name": "Lucas",
+      "status": "En ligne"
+    }
+  ],
+  "offeredActivities": [
+    {
+      "id": "act-paul-catacombes",
+      "name": "Visite des Catacombes",
+      "offered_by": "Paul",
+      "subscriptions": 3,
+      "dayOffset": 1,
+      "time": "10:00",
+      "place": "Via Appia Antica",
+      "message": "Je pars visiter les Catacombes demain matin, qui se joint à moi ?",
+      "ref": "catacombes"
+    }
+  ],
+  "posts": [
+    {
+      "id": "post-marie",
+      "author": "Marie",
+      "text": "Coucher de soleil depuis le Janicule, ça valait le détour !",
+      "likes": 12,
+      "comments": 3,
+      "when": "il y a 2 h"
+    },
+    {
+      "id": "post-sarah",
+      "author": "Sarah",
+      "text": "Premier jour à Rome : Colisée, Forum et gelato.",
+      "likes": 8,
+      "comments": 1,
+      "when": "hier"
+    }
+  ],
+  "publicEvent": {
+    "id": "evt-public",
+    "title": "Soirée aperitivo VibnGO",
+    "where": "Trastevere",
+    "dayOffset": 2,
+    "time": "19:00"
+  },
+  "users": [
+    {
+      "id": "u-clara",
+      "name": "Clara",
+      "profile": "Explorateur Urbain",
+      "trip": "Rome"
+    },
+    {
+      "id": "u-tom",
+      "name": "Tom",
+      "profile": "Globe-trotter Social",
+      "trip": "Rome"
+    },
+    {
+      "id": "u-ines",
+      "name": "Inès",
+      "profile": "Voyageur Épicurien",
+      "trip": "Rome"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt-1",
+      "title": "Concert d'été sur le Tibre",
+      "dayOffset": 3,
+      "where": "Lungotevere"
+    },
+    {
+      "id": "evt-2",
+      "title": "Marché de producteurs de Testaccio",
+      "dayOffset": 1,
+      "where": "Testaccio"
+    }
+  ]
+}

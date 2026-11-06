@@ -1,0 +1,511 @@
+{
+  "pays": {
+    "nom": "Italie",
+    "villes": [
+      {
+        "ville": "Rome",
+        "description": "La Ville éternelle : vingt-huit siècles d'histoire, de places animées et de cuisine généreuse.",
+        "stats": {
+          "activites": 234,
+          "hotels": 89,
+          "note": 4.8
+        },
+        "activites": [
+          {
+            "id": "forum",
+            "type": "activity",
+            "name": "Forum romain et Palatin",
+            "tagline": "Visite guidée · 2 h",
+            "duration": "2 h",
+            "price": "12 €",
+            "rating": 4.6,
+            "tone": "brun",
+            "category": "Patrimoine",
+            "tags": [
+              "Histoire",
+              "Patrimoine"
+            ],
+            "description": "Parcourez le cœur politique de la Rome antique, des temples du Forum aux jardins du Palatin."
+          },
+          {
+            "id": "vatican",
+            "type": "activity",
+            "name": "Musées du Vatican et chapelle Sixtine",
+            "tagline": "Visite avec audioguide · 3 h",
+            "duration": "3 h",
+            "price": "20 €",
+            "rating": 4.7,
+            "tone": "rose",
+            "category": "Culture",
+            "tags": [
+              "Culture",
+              "Art"
+            ],
+            "description": "Un parcours à travers des siècles d'art, jusqu'à la chapelle Sixtine."
+          },
+          {
+            "id": "trastevere",
+            "type": "activity",
+            "name": "Balade gourmande à Trastevere",
+            "tagline": "Dégustations · 2 h 30",
+            "duration": "2 h 30",
+            "price": "45 €",
+            "rating": 4.8,
+            "tone": "orange",
+            "category": "Gastronomie",
+            "tags": [
+              "Gastronomie",
+              "Rencontres"
+            ],
+            "description": "Ruelles pavées, produits locaux et petites adresses d'habitués avec un guide du quartier."
+          },
+          {
+            "id": "appia",
+            "type": "activity",
+            "name": "Via Appia Antica à vélo",
+            "tagline": "Sortie nature · 3 h",
+            "duration": "3 h",
+            "price": "25 €",
+            "rating": 4.5,
+            "tone": "brun",
+            "category": "Nature",
+            "tags": [
+              "Sport",
+              "Nature"
+            ],
+            "description": "Pédalez sur l'ancienne voie romaine, entre aqueducs, tombeaux et pinèdes."
+          },
+          {
+            "id": "catacombes",
+            "type": "activity",
+            "name": "Visite des Catacombes",
+            "tagline": "Visite guidée · 1 h 30",
+            "duration": "1 h 30",
+            "price": "10 €",
+            "rating": 4.6,
+            "tone": "rose",
+            "category": "Patrimoine",
+            "tags": [
+              "Histoire",
+              "Insolite"
+            ],
+            "description": "Descente dans les galeries souterraines de la Via Appia, entre histoire et mystère."
+          },
+          {
+            "id": "cuisine",
+            "type": "activity",
+            "name": "Cours de cuisine : pâtes fraîches",
+            "tagline": "Atelier · 3 h",
+            "duration": "3 h",
+            "price": "60 €",
+            "rating": 4.9,
+            "tone": "orange",
+            "category": "Gastronomie",
+            "tags": [
+              "Gastronomie",
+              "Rencontres"
+            ],
+            "description": "Préparez vos pâtes fraîches avec une cheffe romaine, puis dégustez-les sur place."
+          },
+          {
+            "id": "borghese",
+            "type": "activity",
+            "name": "Villa Borghese et son parc",
+            "tagline": "Promenade libre · 2 h",
+            "duration": "2 h",
+            "price": "Gratuit",
+            "rating": 4.5,
+            "tone": "brun",
+            "category": "Nature",
+            "tags": [
+              "Détente",
+              "Nature"
+            ],
+            "description": "Le grand parc de la ville : pelouses, terrasses panoramiques et pause au calme."
+          },
+          {
+            "id": "aperitivo",
+            "type": "activity",
+            "name": "Aperitivo au coucher du soleil",
+            "tagline": "Rooftop · 1 h 30",
+            "duration": "1 h 30",
+            "price": "18 €",
+            "rating": 4.4,
+            "tone": "rose",
+            "category": "Gastronomie",
+            "tags": [
+              "Rencontres",
+              "Détente"
+            ],
+            "description": "Un spritz, quelques bouchées et la vue sur les toits de Rome."
+          }
+        ],
+        "hotels": [
+          {
+            "id": "hotel-aurelia",
+            "type": "hotel",
+            "name": "Hôtel Aurelia",
+            "tagline": "4 étoiles · Centre historique",
+            "stars": 4,
+            "rating": 4.6,
+            "reviews": 812,
+            "price": "145 € / nuit",
+            "tone": "brun",
+            "description": "Chambres lumineuses, terrasse sur les toits et petit-déjeuner italien, à dix minutes à pied du Panthéon.",
+            "details": [
+              [
+                "Quartier",
+                "Centre historique"
+              ],
+              [
+                "Petit-déjeuner",
+                "Inclus"
+              ],
+              [
+                "Annulation",
+                "Gratuite jusqu'à 48 h avant"
+              ],
+              [
+                "Wi-Fi",
+                "Gratuit"
+              ]
+            ],
+            "address": "Via dei Cappellari · 00186 Roma",
+            "tags": [
+              "Confort",
+              "Centre"
+            ]
+          },
+          {
+            "id": "hotel-trastevere",
+            "type": "hotel",
+            "name": "Casa Trastevere",
+            "tagline": "3 étoiles · Trastevere",
+            "rating": 4.7,
+            "reviews": 534,
+            "stars": 3,
+            "price": "110 € / nuit",
+            "tone": "orange",
+            "description": "Maison de charme dans une ruelle de Trastevere, entourée de petites trattorias.",
+            "details": [
+              [
+                "Quartier",
+                "Trastevere"
+              ],
+              [
+                "Petit-déjeuner",
+                "En option"
+              ],
+              [
+                "Annulation",
+                "Gratuite jusqu'à 72 h avant"
+              ],
+              [
+                "Wi-Fi",
+                "Gratuit"
+              ]
+            ],
+            "address": "Vicolo del Cinque · 00153 Roma",
+            "tags": [
+              "Authentique",
+              "Quartier vivant"
+            ]
+          },
+          {
+            "id": "hotel-monti",
+            "type": "hotel",
+            "name": "Residenza Monti",
+            "tagline": "3 étoiles · Monti",
+            "rating": 4.5,
+            "reviews": 403,
+            "stars": 3,
+            "price": "98 € / nuit",
+            "tone": "rose",
+            "description": "Adresse calme à deux pas du Colisée, idéale pour un séjour culturel.",
+            "details": [
+              [
+                "Quartier",
+                "Monti"
+              ],
+              [
+                "Petit-déjeuner",
+                "Inclus"
+              ],
+              [
+                "Annulation",
+                "Gratuite jusqu'à 24 h avant"
+              ],
+              [
+                "Wi-Fi",
+                "Gratuit"
+              ]
+            ],
+            "address": "Via Urbana · 00184 Roma",
+            "tags": [
+              "Culture",
+              "Proche Colisée"
+            ]
+          },
+          {
+            "id": "hotel-borghese",
+            "type": "hotel",
+            "name": "Villa Borghese Suites",
+            "tagline": "5 étoiles · Parc Borghese",
+            "rating": 4.8,
+            "reviews": 298,
+            "stars": 5,
+            "price": "260 € / nuit",
+            "tone": "brun",
+            "description": "Suites avec vue sur le parc, spa et restaurant gastronomique.",
+            "details": [
+              [
+                "Quartier",
+                "Ludovisi"
+              ],
+              [
+                "Petit-déjeuner",
+                "Inclus"
+              ],
+              [
+                "Annulation",
+                "Gratuite jusqu'à 72 h avant"
+              ],
+              [
+                "Spa",
+                "Accès inclus"
+              ]
+            ],
+            "address": "Via Veneto · 00187 Roma",
+            "tags": [
+              "Luxe",
+              "Détente"
+            ]
+          }
+        ],
+        "resto": [
+          {
+            "id": "resto-monti",
+            "type": "resto",
+            "name": "Trattoria da Lucia",
+            "tagline": "Cuisine romaine · Monti",
+            "rating": 4.6,
+            "price": "€€",
+            "tone": "orange",
+            "description": "Carbonara, cacio e pepe et antipasti maison dans une petite salle familiale.",
+            "details": [
+              [
+                "Cuisine",
+                "Romaine"
+              ],
+              [
+                "Budget",
+                "25–35 €"
+              ],
+              [
+                "Réservation",
+                "Conseillée"
+              ]
+            ],
+            "address": "Via dei Serpenti · 00184 Roma",
+            "tags": [
+              "Gastronomie"
+            ]
+          },
+          {
+            "id": "resto-trastevere",
+            "type": "resto",
+            "name": "Osteria del Gianicolo",
+            "tagline": "Osteria · Trastevere",
+            "rating": 4.5,
+            "price": "€€",
+            "tone": "rose",
+            "description": "Plats de saison et vins du Latium, terrasse dans une ruelle calme.",
+            "details": [
+              [
+                "Cuisine",
+                "Romaine"
+              ],
+              [
+                "Budget",
+                "30–40 €"
+              ],
+              [
+                "Réservation",
+                "Conseillée"
+              ]
+            ],
+            "address": "Via della Scala · 00153 Roma",
+            "tags": [
+              "Gastronomie"
+            ]
+          }
+        ]
+      }
+    ],
+    "point_d_interet": [
+      {
+        "id": "colisee",
+        "type": "monument",
+        "name": "Colisée de Rome",
+        "tagline": "Piazza del Colosseo · Rome",
+        "rating": 4.7,
+        "reviews": 1284,
+        "tone": "orange",
+        "description": "Le plus grand amphithéâtre de l'Antiquité romaine, inauguré en l'an 80. Un passage obligé pour comprendre la Rome impériale.",
+        "details": [
+          [
+            "Durée conseillée",
+            "1 h 30"
+          ],
+          [
+            "Meilleur moment",
+            "Tôt le matin"
+          ],
+          [
+            "Accessibilité",
+            "Partiellement accessible"
+          ],
+          [
+            "Tarif indicatif",
+            "16 €"
+          ]
+        ],
+        "address": "Piazza del Colosseo, 1 · 00184 Roma",
+        "tags": [
+          "Histoire",
+          "Patrimoine"
+        ]
+      },
+      {
+        "id": "trevi",
+        "type": "monument",
+        "name": "Fontaine de Trevi",
+        "tagline": "Piazza di Trevi · Rome",
+        "rating": 4.6,
+        "reviews": 2310,
+        "tone": "rose",
+        "description": "La plus célèbre fontaine de Rome. Venez tôt ou tard pour éviter la foule.",
+        "details": [
+          [
+            "Durée conseillée",
+            "30 min"
+          ],
+          [
+            "Meilleur moment",
+            "En soirée"
+          ],
+          [
+            "Accessibilité",
+            "Accessible"
+          ],
+          [
+            "Tarif indicatif",
+            "Gratuit"
+          ]
+        ],
+        "address": "Piazza di Trevi · 00187 Roma",
+        "tags": [
+          "Patrimoine"
+        ]
+      },
+      {
+        "id": "pantheon",
+        "type": "monument",
+        "name": "Panthéon",
+        "tagline": "Piazza della Rotonda · Rome",
+        "rating": 4.8,
+        "reviews": 1760,
+        "tone": "brun",
+        "description": "Un temple antique à la coupole spectaculaire, toujours ouvert au public.",
+        "details": [
+          [
+            "Durée conseillée",
+            "45 min"
+          ],
+          [
+            "Meilleur moment",
+            "Matin"
+          ],
+          [
+            "Accessibilité",
+            "Accessible"
+          ],
+          [
+            "Tarif indicatif",
+            "5 €"
+          ]
+        ],
+        "address": "Piazza della Rotonda · 00186 Roma",
+        "tags": [
+          "Histoire",
+          "Patrimoine"
+        ]
+      },
+      {
+        "id": "saint-pierre",
+        "type": "monument",
+        "name": "Basilique Saint-Pierre",
+        "tagline": "Cité du Vatican",
+        "rating": 4.8,
+        "reviews": 2105,
+        "tone": "orange",
+        "description": "Imposante basilique de la Renaissance. Montez à la coupole pour la vue sur la ville.",
+        "details": [
+          [
+            "Durée conseillée",
+            "1 h 30"
+          ],
+          [
+            "Meilleur moment",
+            "Début de matinée"
+          ],
+          [
+            "Accessibilité",
+            "Accessible"
+          ],
+          [
+            "Tarif indicatif",
+            "Gratuit (coupole : 10 €)"
+          ]
+        ],
+        "address": "Piazza San Pietro · 00120 Città del Vaticano",
+        "tags": [
+          "Culture",
+          "Patrimoine"
+        ]
+      },
+      {
+        "id": "place-espagne",
+        "type": "monument",
+        "name": "Place d'Espagne",
+        "tagline": "Piazza di Spagna · Rome",
+        "rating": 4.5,
+        "reviews": 980,
+        "tone": "rose",
+        "description": "Ses 135 marches mènent à l'église de la Trinité-des-Monts, belle vue au coucher du soleil.",
+        "details": [
+          [
+            "Durée conseillée",
+            "30 min"
+          ],
+          [
+            "Meilleur moment",
+            "Fin de journée"
+          ],
+          [
+            "Accessibilité",
+            "Escaliers"
+          ],
+          [
+            "Tarif indicatif",
+            "Gratuit"
+          ]
+        ],
+        "address": "Piazza di Spagna · 00187 Roma",
+        "tags": [
+          "Patrimoine"
+        ]
+      }
+    ]
+  }
+}

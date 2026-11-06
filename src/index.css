@@ -1,0 +1,55 @@
+@import '@fontsource-variable/montserrat';
+@import '@fontsource-variable/inter';
+@import 'tailwindcss';
+
+/* Charte graphique VibnGO */
+@theme {
+  --color-orange: #e86c3c;
+  --color-orange-dark: #cf5a2b;
+  --color-rose: #dd8b8b;
+  --color-brun: #5a2e1f;
+  --color-creme: #f1e9e2;
+  --color-anthracite: #343232;
+  --color-line: #e4d9d0;
+  --font-title: 'Montserrat Variable', system-ui, sans-serif;
+  --font-body: 'Inter Variable', system-ui, sans-serif;
+}
+
+@layer base {
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-anthracite);
+  background: var(--color-creme);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+button { font: inherit; cursor: pointer; }
+input, textarea, select { font: inherit; }
+:focus-visible { outline: 2px solid var(--color-orange); outline-offset: 2px; }
+input[type='search']::-webkit-search-cancel-button { display: none; }
+}
+
+/* Échelle typographique de la charte (mobile) */
+.t-hero { font: 700 20px/1.25 var(--font-title); }
+.t-screen { font: 600 18px/1.25 var(--font-title); }
+.t-section { font: 700 13px/1.3 var(--font-title); }
+.t-card { font: 700 12px/1.3 var(--font-title); }
+.t-greet { font: 600 12px/1.3 var(--font-title); }
+.t-number { font: 700 24px/1.1 var(--font-title); }
+.t-body { font: 400 12px/1.5 var(--font-body); }
+.t-body-m { font: 500 12px/1.5 var(--font-body); }
+.t-body-s { font: 600 12px/1.5 var(--font-body); }
+.t-caption { font: 400 10px/1.4 var(--font-body); }
+
+.scroll-area { scrollbar-width: none; }
+.scroll-area::-webkit-scrollbar { display: none; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.fade-up { animation: fadeUp .25s ease both; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 1s linear infinite; }
+@keyframes dot { 0%, 80%, 100% { opacity: .25; } 40% { opacity: 1; } }
+.dot { animation: dot 1.2s infinite; }
+@media (prefers-reduced-motion: reduce) { .fade-up, .spin, .dot { animation: none; } }

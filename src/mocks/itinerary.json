@@ -1,0 +1,131 @@
+{
+  "title": "Roma Aeterna",
+  "days": [
+    {
+      "label": "Jour 1 · Rome antique",
+      "items": [
+        {
+          "id": "i-1-1",
+          "time": "09:00",
+          "ref": "colisee",
+          "kind": "poi",
+          "paid": true
+        },
+        {
+          "id": "i-1-2",
+          "time": "11:00",
+          "ref": "forum",
+          "kind": "activity"
+        },
+        {
+          "id": "i-1-3",
+          "time": "13:00",
+          "ref": "resto-monti",
+          "kind": "resto"
+        },
+        {
+          "id": "i-1-4",
+          "time": "16:00",
+          "ref": "trevi",
+          "kind": "poi"
+        }
+      ]
+    },
+    {
+      "label": "Jour 2 · Vatican et art",
+      "items": [
+        {
+          "id": "i-2-1",
+          "time": "09:00",
+          "ref": "vatican",
+          "kind": "activity",
+          "paid": true
+        },
+        {
+          "id": "i-2-2",
+          "time": "13:00",
+          "ref": "resto-trastevere",
+          "kind": "resto"
+        },
+        {
+          "id": "i-2-3",
+          "time": "15:30",
+          "ref": "saint-pierre",
+          "kind": "poi"
+        },
+        {
+          "id": "i-2-4",
+          "time": "18:30",
+          "ref": "aperitivo",
+          "kind": "activity"
+        }
+      ]
+    },
+    {
+      "label": "Jour 3 · Saveurs et nature",
+      "items": [
+        {
+          "id": "i-3-1",
+          "time": "10:00",
+          "ref": "appia",
+          "kind": "activity"
+        },
+        {
+          "id": "i-3-2",
+          "time": "14:00",
+          "ref": "cuisine",
+          "kind": "activity"
+        },
+        {
+          "id": "i-3-3",
+          "time": "17:30",
+          "ref": "borghese",
+          "kind": "activity"
+        }
+      ]
+    }
+  ],
+  "alternatives": {
+    "activity": [
+      "trastevere",
+      "borghese",
+      "catacombes",
+      "aperitivo"
+    ],
+    "poi": [
+      "pantheon",
+      "place-espagne",
+      "saint-pierre"
+    ],
+    "resto": [
+      "resto-monti",
+      "resto-trastevere"
+    ]
+  },
+  "interests": [
+    "Histoire",
+    "Culture",
+    "Gastronomie",
+    "Nature",
+    "Rencontres",
+    "Détente"
+  ],
+  "tips": [
+    [
+      "Visa",
+      "Pas de visa pour les citoyens de l'UE"
+    ],
+    [
+      "Santé",
+      "Pensez à votre carte européenne d'assurance maladie"
+    ],
+    [
+      "eSIM",
+      "Roaming inclus dans l'UE selon votre forfait"
+    ],
+    [
+      "Valise",
+      "Chaussures confortables : beaucoup de marche"
+    ]
+  ]
+}
