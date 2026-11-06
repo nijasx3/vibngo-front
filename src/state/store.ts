@@ -1,8 +1,7 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import type { Draft, Itinerary, Parameters, UserActivity } from '../types';
 import { addDays, iso, parseISO, today } from '../lib/dates';
-import { community_, itineraryTemplate } from '../api/mockApi';
+import { community_, itineraryTemplate, userSeed } from '../api/mockApi';
 
 export interface User {
   name: string;
@@ -38,7 +37,6 @@ interface State {
   reset: () => void;
 }
 
-export const defaultParams: Parameters = { geo: true, notif: true, sharePosition: true, profileVisible: true, reminders: true, friendMessages: true };
 
 export const makeDraft = (destination = ''): Draft => ({
   destination,
@@ -75,13 +73,11 @@ export const buildItinerary = (destination: string, d: Draft): Itinerary => ({
   validated: false,
 });
 
-export const useStore = create<State>()(
-  persist(
-    (set, get) => ({
+export const useStore = create<State>()((set, get) => ({
       ...initial,
       signup: (name) =>
         set({
-          user: { name: name.trim(), traveler_type: null, current_itinerary: null, like: [], parameters: { ...defaultParams }, friends: community_.friends.map((f) => f.id) },
+          user: { ...structuredClone(userSeed), name: name.trim() } as User,
         }),
       setAnswers: (answers) => set({ answers }),
       setProfile: (id) => set((s) => (s.user ? { user: { ...s.user, traveler_type: id } } : s)),
@@ -123,7 +119,4 @@ export const useStore = create<State>()(
       showToast: (toast) => set({ toast }),
       hideToast: () => set({ toast: null }),
       reset: () => set({ ...initial, draft: makeDraft(), offered: { ...initial.offered } }),
-    }),
-    { name: 'vibngo-poc-v1', partialize: (s) => ({ user: s.user, answers: s.answers, activities: s.activities, offered: s.offered, joined: s.joined, draft: s.draft }) },
-  ),
-);
+    }));

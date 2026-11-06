@@ -57,7 +57,7 @@ export default function Settings() {
           <div className="flex flex-col gap-2">
             <Button variant="outline" onClick={() => { loadDemoItinerary(); showToast('Itinéraire de démonstration chargé'); }}>Charger un itinéraire de démonstration</Button>
             <Button variant="dark" onClick={() => { if (window.confirm('Réinitialiser le prototype ? Toutes les données locales seront effacées.')) { reset(); nav('/signup', { replace: true }); } }}>Réinitialiser le prototype</Button>
-            <p className="t-caption text-anthracite/60">Raccourci : ajoutez <code>#/reset</code> à l'adresse pour repartir de zéro.</p>
+            <p className="t-caption text-anthracite/60">Rafraîchir la page déconnecte aussi l'utilisateur et remet tout à zéro.</p>
           </div>
         </Accordion>
       </div>
