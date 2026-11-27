@@ -20,7 +20,7 @@
         -0.66,
         -1.0
       ],
-      "image": "profil-explorateur_aventurier.jpg",
+      "image": "profil-explorateur_aventurier.webp",
       "destinations": [
         "patagonie",
         "kyoto",
@@ -40,7 +40,7 @@
         0.33,
         -0.66
       ],
-      "image": "profil-explorateur_urbain.jpg",
+      "image": "profil-explorateur_urbain.webp",
       "destinations": [
         "kyoto",
         "rome",
@@ -60,7 +60,7 @@
         -0.66,
         -0.66
       ],
-      "image": "profil-aventurier_nature.jpg",
+      "image": "profil-aventurier_nature.webp",
       "destinations": [
         "patagonie",
         "bali",
@@ -80,7 +80,7 @@
         0.0,
         -0.33
       ],
-      "image": "profil-globe_trotter_social.jpg",
+      "image": "profil-globe_trotter_social.webp",
       "destinations": [
         "rome",
         "bali",
@@ -100,7 +100,7 @@
         1.0,
         -0.33
       ],
-      "image": "profil-voyageur_epicurien.jpg",
+      "image": "profil-voyageur_epicurien.webp",
       "destinations": [
         "rome",
         "kyoto",
@@ -120,7 +120,7 @@
         0.33,
         -0.33
       ],
-      "image": "profil-voyageur_zen.jpg",
+      "image": "profil-voyageur_zen.webp",
       "destinations": [
         "bali",
         "patagonie",
@@ -140,7 +140,7 @@
         0.66,
         0.66
       ],
-      "image": "profil-voyageur_organise.jpg",
+      "image": "profil-voyageur_organise.webp",
       "destinations": [
         "kyoto",
         "rome",
@@ -160,7 +160,7 @@
         -0.33,
         -1.0
       ],
-      "image": "profil-explorateur_authentique.jpg",
+      "image": "profil-explorateur_authentique.webp",
       "destinations": [
         "kyoto",
         "patagonie",

@@ -34,7 +34,7 @@ export default function Result() {
       <div className="flex flex-1 flex-col items-center px-5 text-center">
         <p className="t-label text-[12px] font-normal tracking-wide text-muted">TON PROFIL VOYAGEUR</p>
         <h1 data-testid="profile-name" className="t-title mt-2 text-[28px]">{profile.name}</h1>
-        <img src={img(profile.image)} alt="" className="mt-4 h-[210px] w-auto" />
+        <img src={img(profile.image)} alt="" className="mt-4 h-[210px] w-[280px] object-contain" />
         <div className="mt-4 w-full rounded-lg bg-sable px-6 py-7"><p className="t-body text-[16px] text-muted">{profile.description}</p></div>
         <p className="t-body mt-5 max-w-[300px] text-muted">Ton profil est enregistré. Découvre les destinations proposées pour toi.</p>
       </div>
