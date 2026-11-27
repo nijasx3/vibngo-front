@@ -21,7 +21,7 @@ export default function Result() {
   if (!profile) {
     return (
       <div role="status" aria-live="polite" className="flex flex-1 flex-col items-center justify-center gap-5 px-8 text-center">
-        <img src={img('vibi.png')} alt="" className="h-32" />
+        <img src={img('vibi-oiseau.png')} alt="" className="h-32" />
         <div className="spin h-8 w-8 rounded-full border-4 border-sable border-t-orange" />
         <h1 className="t-h3 text-[18px]">Vibi analyse tes réponses…</h1>
         <p className="t-body text-muted">Ton profil voyageur arrive dans un instant.</p>

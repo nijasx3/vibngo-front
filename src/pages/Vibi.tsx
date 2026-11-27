@@ -45,7 +45,7 @@ export default function Vibi({ mode }: { mode: 'chat' | 'create' }) {
     <div className="flex min-h-0 flex-1 flex-col">
       <Header onBack={() => nav(create ? '/create' : '/home')} />
       <div className="flex items-center gap-3 px-5 pb-3">
-        <span className="h-11 w-11 overflow-hidden rounded-full bg-sable"><img src={img('vibi-avatar.png')} alt="" className="h-full w-full object-cover" /></span>
+        <span className="h-11 w-11 overflow-hidden rounded-full bg-sable"><img src={img('vibi-pastille.png')} alt="" className="h-full w-full object-cover" /></span>
         <div><h1 className="t-h3 text-[20px]">Vibi</h1><p className="t-small text-muted">Ton assistant de voyage</p></div>
         <span className="t-small ml-auto flex items-center gap-1.5 text-[11px]"><span className="h-2 w-2 rounded-full bg-green-500" />En ligne</span>
       </div>

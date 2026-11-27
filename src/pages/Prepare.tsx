@@ -15,7 +15,7 @@ export default function Prepare() {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div role="status" aria-live="polite" className="flex flex-1 flex-col items-center justify-center gap-5 px-8 text-center">
-      <img src={img('vibi.png')} alt="" className="h-32" />
+      <img src={img('vibi-oiseau.png')} alt="" className="h-32" />
       <div className="spin h-8 w-8 rounded-full border-4 border-sable border-t-orange" />
       <h1 className="t-h3 text-[18px]">Vibi prépare ton itinéraire à Rome…</h1>
       <p className="t-body text-muted">Quelques secondes, le temps de choisir les meilleures étapes.</p>

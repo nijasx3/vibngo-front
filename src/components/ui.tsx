@@ -23,7 +23,7 @@ export function TopBar({ bare = false }: { bare?: boolean }) {
       <div className="flex-1" />
       <Link to="/soon?page=messages" className="text-[15px] font-medium text-brun">Messages</Link>
       <Link to="/vibi" aria-label="Ouvrir Vibi, ton assistant" className="flex h-9 items-center gap-2 rounded-lg bg-sable pl-1 pr-3 text-[13px] font-medium">
-        <span className="h-7 w-7 overflow-hidden rounded-full bg-white"><img src={img('vibi-avatar.png')} alt="" className="h-full w-full object-cover" /></span>Vibi
+        <span className="h-7 w-7 overflow-hidden rounded-full bg-white"><img src={img('vibi-pastille.png')} alt="" className="h-full w-full object-cover" /></span>Vibi
       </Link>
       <Link to="/soon?page=notifications" aria-label="Notifications" className="relative p-1">
         <Bell size={20} strokeWidth={1.8} />
