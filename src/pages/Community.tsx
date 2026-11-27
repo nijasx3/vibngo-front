@@ -1,87 +1,84 @@
-import { Check, Heart, MessageCircle, MoreHorizontal, Plus } from 'lucide-react';
-import TopBar from '../components/TopBar';
-import { Button, Card, Visual, cx } from '../components/ui';
-import { community_ } from '../api/mockApi';
+import { useState } from 'react';
+import { Bookmark, Heart, Link2, MessageCircle, Plus, Star } from 'lucide-react';
+import { Avatar, Stars, TopBar, cx } from '../components/ui';
+import { communityData } from '../api/mockApi';
 import { useStore } from '../state/store';
-import { addDays, fmtLong, today } from '../lib/dates';
-
-const Avatar = ({ name, size = 40, ring }: { name: string; size?: number; ring?: boolean }) => (
-  <span style={{ width: size, height: size }} className={cx('t-card flex shrink-0 items-center justify-center rounded-full bg-rose text-white', ring && 'ring-2 ring-orange ring-offset-2 ring-offset-creme')}>{name[0]}</span>
-);
+import { addDays, fmtDayMonth, today } from '../lib/dates';
 
 export default function Community() {
-  const { user, joined, offered, join, leave, showToast } = useStore();
-  const stories = [{ name: user?.name ?? 'Moi', label: 'Moi' }, ...community_.friends.map((f) => ({ name: f.name, label: f.name }))];
-  const a = community_.offeredActivities[0];
-  const isJoined = joined.includes(a.id);
-  const date = addDays(today(), a.dayOffset);
-  const count = offered[a.id] ?? a.subscriptions;
-  const evt = community_.publicEvent;
+  const { user, activities, maybe, joinInvitation, leaveInvitation, setMaybe, toggleLike, showToast } = useStore();
+  const inv = communityData.invitation;
+  const post = communityData.post;
+  const joined = activities.some((a) => a.id === inv.id);
+  const seats = inv.seats - (joined ? 1 : 0);
+  const [likedPost, setLikedPost] = useState(false);
+  const [comments, setComments] = useState<{ who: string; text: string }[]>([communityData.invitation.comment]);
+  const [draft, setDraft] = useState('');
+  const saved = !!user?.like.includes(post.id);
+  const initials = (user?.name ?? 'M').slice(0, 2).toUpperCase();
+
+  const addComment = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!draft.trim()) return;
+    setComments((c) => [...c, { who: initials, text: draft.trim() }]);
+    setDraft('');
+  };
 
   return (
-    <div className="fade-up">
-      <TopBar title="Communauté" />
-      <div className="flex flex-col gap-4 pb-4">
-        <div className="scroll-area flex gap-4 overflow-x-auto px-4" aria-label="Amis">
-          {stories.map((s, i) => (
-            <button key={s.label + i} onClick={() => showToast(i === 0 ? 'Ajouter une story : fonctionnalité simulée' : `Story de ${s.name} : fonctionnalité simulée`)} className="flex w-14 shrink-0 flex-col items-center gap-1">
-              <Avatar name={s.name} size={52} ring={i > 0} />
-              <span className="t-caption truncate text-anthracite/80">{s.label}</span>
-            </button>
-          ))}
-        </div>
-
-        <div className="mx-4 flex items-center gap-2">
-          <Avatar name={user?.name ?? '?'} size={36} />
-          <button onClick={() => showToast('Publication : fonctionnalité simulée')} className="t-body-m flex min-h-11 flex-1 items-center rounded-full border border-line bg-white px-4 text-left text-anthracite/50">Partagez une activité…</button>
-          <button aria-label="Inviter des amis" onClick={() => showToast('Invitation d\'amis : fonctionnalité simulée')} className="flex h-11 w-11 items-center justify-center rounded-full bg-orange text-white"><Plus size={20} /></button>
-        </div>
-
-        {/* Invitation de Paul : parcours 5 */}
-        <article className="mx-4 overflow-hidden rounded-2xl border border-line bg-white" data-testid="paul-invitation">
-          <div className="flex items-center gap-3 p-3">
-            <Avatar name={a.offered_by} size={36} />
-            <div className="flex-1"><p className="t-card text-brun">{a.offered_by}</p><p className="t-caption text-anthracite/60">il y a 1 h · {a.place}</p></div>
-            <MoreHorizontal size={18} className="text-anthracite/50" />
+    <>
+      <TopBar />
+      <div className="px-5 pb-2 pt-2"><h1 className="t-title text-[28px]">Communauté</h1></div>
+      <div className="scroll-area flex shrink-0 gap-4 overflow-x-auto px-5 pb-3">
+        {communityData.stories.map((s) => (
+          <div key={s.id} className="flex shrink-0 flex-col items-center gap-1">
+            {s.id === 'me'
+              ? <button aria-label="Ajouter une story" onClick={() => showToast('Stories : bientôt disponible')} className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-orange text-orange"><Plus size={22} /></button>
+              : <Avatar initials={s.name.slice(0, 1) + (s.id === 'lucas' ? 'M' : '')} size={56} tone="sable" />}
+            <span className="t-small">{s.name}</span>
           </div>
-          <p className="t-body px-3 pb-3 text-anthracite/90">{a.message}</p>
-          <div className="border-t border-line bg-orange/5 p-3">
-            <p className="t-section text-brun">Invitation : {a.name}</p>
-            <p className="t-body mt-0.5 text-anthracite/80">{fmtLong(date)} à {a.time} · {a.place}</p>
-            <p className="t-caption mt-1 font-semibold text-orange-dark" data-testid="subscriptions">{count} inscrit{count > 1 ? 's' : ''}</p>
-            <div className="mt-3 flex gap-2">
-              {isJoined ? (
-                <>
-                  <Button full variant="outline" disabled className="!opacity-100 !border-orange !text-orange"><Check size={16} />Vous participez</Button>
-                  <Button variant="ghost" onClick={() => { leave(a.id); showToast('Participation annulée'); }}>Annuler</Button>
-                </>
-              ) : (
-                <>
-                  <Button full onClick={() => { join(a.id); showToast(`Inscription confirmée : ${a.name}`); }}>Je participe</Button>
-                  <Button variant="outline" onClick={() => showToast('Noté : vous répondrez plus tard')}>Peut-être</Button>
-                </>
-              )}
-            </div>
+        ))}
+      </div>
+      <div className="flex items-baseline justify-between px-5 pt-2"><h2 className="t-small text-[13px] font-bold">Fil de voyage</h2><button onClick={() => showToast('Publier : bientôt disponible')} className="text-[13px] font-bold">Publier</button></div>
+
+      <div className="flex flex-col gap-5 px-5 pb-6 pt-3">
+        <article>
+          <div className="flex items-center gap-3"><Avatar initials={post.initials} size={36} /><div><div className="t-h3 text-[15px]">{post.author}</div><div className="t-small text-muted">{post.role} · {post.when} · {post.where}</div></div></div>
+          <div className="mt-3 overflow-hidden rounded-xl"><img src={`${import.meta.env.BASE_URL}img/${post.image}`} alt="" className="h-[80px] w-full object-cover" /><div className="bg-brun px-4 py-3 text-white"><div className="text-[17px] font-bold">{post.title}</div><div className="t-small text-white/85">{post.text}</div></div></div>
+          <div className="mt-3 flex items-center gap-4 text-[13px]">
+            <button onClick={() => setLikedPost(!likedPost)} aria-pressed={likedPost} className="flex items-center gap-1.5"><Heart size={19} className={likedPost ? 'text-orange' : ''} fill={likedPost ? 'currentColor' : 'none'} />{post.likes + (likedPost ? 1 : 0)}</button>
+            <span className="flex items-center gap-1.5"><MessageCircle size={19} />{post.comments}</span>
+            <button aria-label="Copier le lien" onClick={() => showToast('Lien copié (simulation)')}><Link2 size={19} /></button>
+            <div className="flex-1" />
+            <button aria-label={saved ? 'Retirer des sauvegardes' : 'Sauvegarder la publication'} aria-pressed={saved} onClick={() => { toggleLike(post.id); showToast(saved ? 'Retiré de tes sauvegardes' : 'Publication sauvegardée'); }}><Bookmark size={19} className={saved ? 'text-orange' : ''} fill={saved ? 'currentColor' : 'none'} /></button>
           </div>
-          <div className="flex items-center gap-4 border-t border-line px-3 py-2"><span className="t-caption flex items-center gap-1 text-anthracite/70"><Heart size={14} />6</span><span className="t-caption flex items-center gap-1 text-anthracite/70"><MessageCircle size={14} />2</span></div>
         </article>
 
-        {community_.posts.map((p) => (
-          <article key={p.id} className="mx-4 overflow-hidden rounded-2xl border border-line bg-white">
-            <div className="flex items-center gap-3 p-3"><Avatar name={p.author} size={36} /><div className="flex-1"><p className="t-card text-brun">{p.author}</p><p className="t-caption text-anthracite/60">{p.when}</p></div></div>
-            <Visual tone={p.author === 'Marie' ? 'rose' : 'brun'} className="h-32" label="Photo" />
-            <p className="t-body p-3 text-anthracite/90">{p.text}</p>
-            <div className="flex items-center gap-4 border-t border-line px-3 py-2"><span className="t-caption flex items-center gap-1 text-anthracite/70"><Heart size={14} />{p.likes}</span><span className="t-caption flex items-center gap-1 text-anthracite/70"><MessageCircle size={14} />{p.comments}</span></div>
-          </article>
-        ))}
+        <article data-testid="invitation">
+          <div className="flex items-center gap-3"><Avatar initials={inv.initials} size={36} tone="sable" /><div><div className="t-h3 text-[15px]">{inv.author}</div><div className="t-small text-muted">{inv.role} · {inv.when}</div></div></div>
+          <div className="mt-3 rounded-lg border-l-[3px] border-orange bg-sable p-4">
+            <div className="t-micro text-muted">Invitation / <span data-testid="seats">{seats}</span> places dispo</div>
+            <h2 className="t-section mt-1 text-[22px]">{inv.name}</h2>
+            <p className="t-h3 mt-1 text-[14px]">{inv.city} · {fmtDayMonth(addDays(today(), inv.dayOffset))} · {inv.time}</p>
+            <p className="t-small mt-1 italic text-muted">« {inv.message} »</p>
+            {joined
+              ? <div className="mt-3"><div data-testid="joined" className="rounded-md bg-vert py-2.5 text-center text-[13px] font-bold">Inscrit · {activities.find((a) => a.id === inv.id)?.subscriptions} participants</div>
+                <button onClick={leaveInvitation} className="mt-2 w-full text-center text-[12px] font-bold underline">Se désinscrire</button></div>
+              : <div className="mt-3 grid grid-cols-2 gap-2">
+                  <button data-testid="join" onClick={() => { joinInvitation(); showToast('Tu participes à « ' + inv.name + ' »'); }} className="min-h-10 rounded-md bg-orange text-[13px] font-bold text-white">Je participe</button>
+                  <button onClick={() => { setMaybe(!maybe); showToast(maybe ? 'Réponse retirée' : 'Noté : peut-être'); }} aria-pressed={maybe} className={cx('min-h-10 rounded-md text-[13px] font-bold', maybe ? 'bg-brun text-white' : 'bg-white')}>Peut-être</button>
+                </div>}
+          </div>
+          <ul className="mt-2 flex flex-col gap-1.5">{comments.map((c, i) => <li key={i} className="flex items-center gap-2"><Avatar initials={c.who} size={24} /><span className="t-small flex-1 rounded-md bg-sable px-3 py-1.5">{c.text}</span></li>)}</ul>
+          <form onSubmit={addComment} className="mt-2"><input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Ajouter un commentaire…" aria-label="Ajouter un commentaire" className="t-small w-full rounded-md bg-sable px-3 py-2.5 focus:outline-none" /></form>
+        </article>
 
-        <Card className="mx-4 !bg-creme !border-orange/30">
-          <p className="t-section text-brun">Événement public</p>
-          <p className="t-card mt-1 text-brun">{evt.title}</p>
-          <p className="t-body text-anthracite/80">{fmtLong(addDays(today(), evt.dayOffset))} à {evt.time} · {evt.where}</p>
-          <Button className="mt-2 !min-h-9" onClick={() => showToast('Inscription à l\'événement : fonctionnalité simulée')}>Rejoindre</Button>
-        </Card>
+        <article className="rounded-lg bg-white p-4 shadow-[0_1px_0_rgba(90,46,31,.08)]">
+          <div className="flex items-center gap-3"><Avatar initials={communityData.review.initials} size={32} /><div className="t-h3 text-[15px]">{communityData.review.author} a noté une activité</div></div>
+          <div className="mt-2 flex items-center gap-1"><Stars value={communityData.review.stars} /></div>
+          <p className="t-body mt-1">{communityData.review.text}</p>
+          <p className="t-small mt-1 flex items-center gap-1 text-muted"><Star size={11} />{communityData.review.tag}</p>
+        </article>
       </div>
-    </div>
+    </>
   );
 }

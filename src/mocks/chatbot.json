@@ -1,36 +1,24 @@
 {
-  "welcome": "Bonjour ! Je suis l'assistant VibnGO. Je peux vous aider à adapter votre itinéraire à Rome. Que souhaitez-vous faire ?",
+  "welcome": "Salut {name} ! Je peux adapter ton programme, te donner les infos visa ou la météo. Que veux-tu faire ?",
   "suggestions": [
     {
-      "id": "add",
-      "label": "Ajouter une activité",
-      "reply": "Voici trois idées qui correspondent à votre profil. Ajoutez-les depuis la page Explorer.",
-      "cards": [
-        "trastevere",
-        "borghese",
-        "aperitivo"
-      ]
+      "id": "edit",
+      "label": "Modifier une activité",
+      "reply": "Ouvre ton programme du jour, choisis une étape puis touche Retarder, Reporter ou Changer. Je m'occupe du reste."
     },
     {
-      "id": "replace",
-      "label": "Remplacer une activité",
-      "reply": "Pour remplacer une activité, ouvrez votre itinéraire puis touchez « Remplacer » sur l'activité concernée."
+      "id": "visa",
+      "label": "Infos visa",
+      "reply": "Pour l'Italie, un citoyen de l'UE n'a pas besoin de visa : une carte d'identité ou un passeport en cours de validité suffit."
     },
     {
-      "id": "delete",
-      "label": "Supprimer une activité",
-      "reply": "Dans votre itinéraire, touchez « Supprimer » sur l'activité à retirer. Je recalcule le reste de la journée."
-    },
-    {
-      "id": "info",
-      "label": "Infos voyage",
-      "reply": "À Rome, comptez sur beaucoup de marche, prévoyez une gourde et réservez le Colisée et le Vatican à l'avance."
-    },
-    {
-      "id": "book",
-      "label": "Aide réservation",
-      "reply": "Je peux vous orienter vers le site de réservation du partenaire. Dans ce prototype, aucune réservation réelle n'est effectuée."
+      "id": "meteo",
+      "label": "Météo",
+      "reply": "Il fait 28 °C à Rome aujourd'hui, avec un temps changeant ce soir (données fictives du prototype)."
     }
   ],
-  "fallback": "Dans ce prototype, je réponds aux suggestions proposées ci-dessus. Choisissez-en une pour continuer."
+  "fallback": "Dans ce prototype, je réponds aux suggestions proposées au-dessus. Choisis-en une pour continuer.",
+  "createWelcome": "Où veux-tu partir ? Indique tes dates, ton budget, ton transport, les villes à visiter et qui t'accompagne.",
+  "createExample": "Rome du 4 au 11 juillet, 1 500 € par personne, aller en train.",
+  "createReply": "J'ai préparé ton programme à Rome et prévu un aller en train. Tu peux vérifier les étapes et les trajets."
 }

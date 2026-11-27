@@ -2,31 +2,37 @@
 // Aujourd'hui elle lit des JSON locaux (src/mocks) ; demain on remplacera par des appels HTTP
 // vers le back sans toucher aux écrans.
 import questions from '../mocks/questions.json';
-import rome from '../mocks/rome.json';
+import placesData from '../mocks/places.json';
+import destinationsData from '../mocks/destinations.json';
+import explore from '../mocks/explore.json';
+import trip from '../mocks/trip.json';
 import community from '../mocks/community.json';
-import itineraryTpl from '../mocks/itinerary.json';
 import chatbot from '../mocks/chatbot.json';
 import user from '../mocks/user.json';
-import type { Country, Item, Question } from '../types';
-import { scoreProfile } from '../lib/scoring';
+import type { Activity, Destination, EventItem, Place, Question, Viber } from '../types';
+import { PROFILES, scoreProfile } from '../lib/scoring';
 
 const wait = <T,>(v: T, ms = 250) => new Promise<T>((res) => setTimeout(() => res(v), ms));
 
-const country = rome.pays as unknown as Country;
-const city = country.villes[0];
-
-export const catalog = {
-  country,
-  city,
-  all: (): Item[] => [...country.point_d_interet, ...city.activites, ...city.hotels, ...city.resto],
-  byId: (id: string): Item | undefined => catalog.all().find((i) => i.id === id),
-};
-
-export const community_ = community;
-export const itineraryTemplate = itineraryTpl;
+export const QUESTIONS = questions as Question[];
+export const rome = placesData.destination;
+export const PLACES = placesData.places as unknown as Place[];
+export const DESTINATIONS = destinationsData as Destination[];
+export const ACTIVITIES = explore.activities as Activity[];
+export const VIBERS = explore.users as Viber[];
+export const EVENTS = explore.events as EventItem[];
+export const tripTemplate = trip;
+export const communityData = community;
 export const chatbotScript = chatbot;
 export const userSeed = user;
-export const getQuestions = () => wait(questions as Question[], 0);
-export const computeProfile = (answers: string[]) => wait(scoreProfile(questions as Question[], answers), 900);
-export const generateItinerary = () => wait(itineraryTpl, 2400);
-export const search = (q: string) => wait(q, 200);
+
+export const placeById = (id: string) => PLACES.find((p) => p.id === id);
+export const profileById = (id: string | null) => PROFILES.find((p) => p.id === id);
+export const eventById = (id: string) => EVENTS.find((e) => e.id === id);
+
+export const computeProfile = (answers: string[]) => wait(scoreProfile(QUESTIONS, answers), 1200);
+export const prepareItinerary = () => wait(true, 2200);
+export const askVibi = () => wait(true, 1100);
+
+/** Normalise pour la recherche : minuscules, sans accents. */
+export const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();

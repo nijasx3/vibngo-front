@@ -19,6 +19,13 @@
         0.33,
         -0.66,
         -1.0
+      ],
+      "image": "profil-explorateur_aventurier.jpg",
+      "destinations": [
+        "patagonie",
+        "kyoto",
+        "bali",
+        "rome"
       ]
     },
     {
@@ -32,6 +39,13 @@
         0.33,
         0.33,
         -0.66
+      ],
+      "image": "profil-explorateur_urbain.jpg",
+      "destinations": [
+        "kyoto",
+        "rome",
+        "bali",
+        "patagonie"
       ]
     },
     {
@@ -45,6 +59,13 @@
         0.0,
         -0.66,
         -0.66
+      ],
+      "image": "profil-aventurier_nature.jpg",
+      "destinations": [
+        "patagonie",
+        "bali",
+        "kyoto",
+        "rome"
       ]
     },
     {
@@ -58,6 +79,13 @@
         1.0,
         0.0,
         -0.33
+      ],
+      "image": "profil-globe_trotter_social.jpg",
+      "destinations": [
+        "rome",
+        "bali",
+        "kyoto",
+        "patagonie"
       ]
     },
     {
@@ -71,6 +99,13 @@
         0.33,
         1.0,
         -0.33
+      ],
+      "image": "profil-voyageur_epicurien.jpg",
+      "destinations": [
+        "rome",
+        "kyoto",
+        "bali",
+        "patagonie"
       ]
     },
     {
@@ -84,6 +119,13 @@
         -0.33,
         0.33,
         -0.33
+      ],
+      "image": "profil-voyageur_zen.jpg",
+      "destinations": [
+        "bali",
+        "patagonie",
+        "kyoto",
+        "rome"
       ]
     },
     {
@@ -97,6 +139,13 @@
         0.0,
         0.66,
         0.66
+      ],
+      "image": "profil-voyageur_organise.jpg",
+      "destinations": [
+        "kyoto",
+        "rome",
+        "patagonie",
+        "bali"
       ]
     },
     {
@@ -110,6 +159,13 @@
         0.33,
         -0.33,
         -1.0
+      ],
+      "image": "profil-explorateur_authentique.jpg",
+      "destinations": [
+        "kyoto",
+        "patagonie",
+        "bali",
+        "rome"
       ]
     }
   ],

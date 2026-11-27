@@ -1,83 +1,110 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Heart, MapPin, Navigation, Star } from 'lucide-react';
-import { Accordion, Badge, Button, Rating, Visual, cx } from '../components/ui';
-import { TYPE_ICON, TYPE_LABEL } from '../components/ItemCard';
-import { catalog } from '../api/mockApi';
+import { useState } from 'react';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { Bookmark, Share2, Star } from 'lucide-react';
+import { Avatar, Button, Header, Photo, SectionTitle, Sheet, Stars, Tabs, cx } from '../components/ui';
+import { eventById, placeById, profileById } from '../api/mockApi';
 import { useStore } from '../state/store';
-import { PROFILES } from '../lib/scoring';
+import { addDays, monthAbbr, today } from '../lib/dates';
+import { addStop, dayIndex, uid } from '../lib/itinerary';
 
-const REVIEWS: Record<string, [string, string][]> = {
-  default: [['Inès', 'Très belle expérience, je recommande d\'y aller tôt.'], ['Marc', 'Super adresse, rien à redire.']],
-};
+const TABS = ['Infos', 'Photos', 'Avis', 'Événements'];
+const fmtN = (n: number) => n.toLocaleString('fr-FR').replace(/ /g, ' ');
 
 export default function Place() {
-  const { id } = useParams();
+  const { id = '' } = useParams();
   const nav = useNavigate();
-  const { user, toggleLike, showToast } = useStore();
-  const item = id ? catalog.byId(id) : undefined;
-  if (!item) return <div className="p-6 text-center"><p className="t-screen text-brun">Lieu introuvable</p><Button className="mt-4" onClick={() => nav('/explore')}>Retour à Explorer</Button></div>;
-  const liked = !!user?.like.includes(item.id);
-  const Icon = TYPE_ICON[item.type];
-  const profile = PROFILES.find((p) => p.id === user?.traveler_type);
-  const isHotel = item.type === 'hotel';
+  const place = placeById(id);
+  const { user, toggleLike, reviews, addReview, showToast, updateItinerary } = useStore();
+  const [tab, setTab] = useState('Infos');
+  const [writing, setWriting] = useState(false);
+  const [stars, setStars] = useState(5);
+  const [text, setText] = useState('');
+  if (!place) return <Navigate to="/explore" replace />;
+  const liked = !!user?.like.includes(place.id);
+  const mine = reviews[place.id] ?? [];
+  const all = [...mine, ...place.reviewsList];
+  const hotel = place.kind === 'hotel';
+  const profile = profileById(user?.traveler_type ?? null);
 
-  const like = () => { toggleLike(item.id); showToast(liked ? 'Retiré de vos favoris' : 'Ajouté à vos favoris'); };
+  const addToTrip = () => {
+    const it = user?.current_itinerary;
+    if (!it) return showToast('Crée d’abord un voyage pour y ajouter ce lieu.');
+    const di = Math.min(Math.max(dayIndex(it), 0), it.days.length - 1);
+    updateItinerary((x) => addStop(x, di, { id: uid(), time: '17:00', title: place.name, sub: `${place.typeLabel} · Rome` }));
+    showToast(`${place.name} ajouté à ton programme`);
+  };
+  const publish = () => {
+    if (!text.trim()) return;
+    addReview(place.id, { who: user?.name ?? 'Moi', role: profile?.name.split(' ')[0] ?? 'Voyageur', stars, text: text.trim() });
+    setText(''); setStars(5); setWriting(false); setTab('Avis');
+    showToast('Ton avis est publié');
+  };
 
   return (
-    <div className="fade-up pb-4">
-      <Visual tone={item.tone} className="h-60 !items-end !justify-start p-4" icon={<Icon size={64} />} label={item.name}>
-        <div className="absolute inset-x-4 top-4 z-10 flex items-center justify-between">
-          <button aria-label="Retour" onClick={() => nav(-1)} className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-brun shadow"><ArrowLeft size={22} /></button>
-          <button aria-label={liked ? 'Retirer des favoris' : 'Ajouter aux favoris'} aria-pressed={liked} onClick={like} className="flex h-11 w-11 items-center justify-center rounded-full bg-white shadow">
-            <Heart size={22} className={cx(liked ? 'fill-orange text-orange' : 'text-brun')} />
-          </button>
-        </div>
-        <div className="relative z-10 text-left text-white"><h1 className="t-hero">{item.name}</h1><p className="t-body">{item.tagline}</p></div>
-      </Visual>
-
-      <div className="flex flex-col gap-4 px-4 pt-4">
-        <div className="flex flex-wrap items-center gap-2">
-          <Rating value={item.rating} count={item.reviews} />
-          {isHotel && item.stars && <span className="flex">{Array.from({ length: item.stars }).map((_, i) => <Star key={i} size={12} className="fill-orange text-orange" />)}</span>}
-          {item.price && <Badge tone="orange">{item.price}</Badge>}
-          <Badge>{TYPE_LABEL[item.type]}</Badge>
-        </div>
-        {profile && <Badge tone="rose">Recommandé pour le profil : {profile.name}</Badge>}
-
-        <Button full variant={liked ? 'outline' : 'primary'} onClick={like} aria-pressed={liked}>
-          <Heart size={18} className={cx(liked && 'fill-orange text-orange')} />{liked ? 'Dans vos favoris' : 'Ajouter aux favoris'}
-        </Button>
-
-        <p className="t-body text-anthracite/90">{item.description}</p>
-
-        <Accordion title="Détails" defaultOpen>
-          <dl className="flex flex-col gap-2">
-            {(item.details ?? []).map(([k, v]) => (
-              <div key={k} className="flex justify-between gap-4"><dt className="t-body text-anthracite/70">{k}</dt><dd className="t-body-s text-right text-brun">{v}</dd></div>
-            ))}
-          </dl>
-        </Accordion>
-        <Accordion title="Adresse et géolocalisation">
-          <Visual tone="brun" className="h-24 rounded-xl" icon={<MapPin size={28} />} label="Carte" />
-          <p className="t-body mt-2 text-anthracite/90">{item.address}</p>
-          <Button variant="outline" className="mt-2 !min-h-9" onClick={() => showToast('Itinéraire : fonctionnalité simulée')}><Navigation size={16} />Itinéraire</Button>
-        </Accordion>
-        <Accordion title="Galerie photos">
-          <div className="grid grid-cols-3 gap-2">{(['orange', 'rose', 'brun'] as const).map((t) => <Visual key={t} tone={t} className="h-20 rounded-xl" label="Photo" />)}</div>
-        </Accordion>
-        <Accordion title="Avis voyageurs">
-          <ul className="flex flex-col gap-3">
-            {REVIEWS.default.map(([n, t]) => (
-              <li key={n} className="flex gap-3"><span className="t-card flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-rose text-white">{n[0]}</span><div><p className="t-card text-brun">{n}</p><p className="t-body text-anthracite/80">{t}</p></div></li>
-            ))}
-          </ul>
-        </Accordion>
-
-        <div className="flex gap-2">
-          <Button full onClick={() => showToast('Réservation simulée : redirection vers le partenaire')}>{isHotel ? 'Réserver' : 'Réserver en ligne'}</Button>
-          <Button full variant="outline" onClick={() => showToast('Création d\'événement : fonctionnalité simulée')}>Créer un événement</Button>
+    <>
+      <Header lead={hotel ? 'HÉBERGEMENT' : 'LIEU À EXPLORER'} right={<div className="flex gap-1">
+        <button aria-label="Partager" onClick={() => showToast('Lien copié (simulation)')} className="p-2"><Share2 size={20} /></button>
+        <button aria-label={liked ? 'Retirer des sauvegardes' : 'Sauvegarder'} aria-pressed={liked} data-testid="like" onClick={() => { toggleLike(place.id); showToast(liked ? 'Retiré de tes sauvegardes' : 'Ajouté à tes sauvegardes'); }} className="p-2">
+          <Bookmark size={20} className={liked ? 'text-orange' : ''} fill={liked ? 'currentColor' : 'none'} />
+        </button></div>} />
+      <div className="px-5">
+        <Photo src={place.hero} className="h-[170px] w-full rounded-xl" />
+        <h1 data-testid="place-title" className="t-title mt-4 text-[30px]">{place.name}</h1>
+        <p className="t-body mt-1 text-muted">{place.address}</p>
+        <div className="mt-2 flex items-center justify-between">
+          <span className="t-small flex items-center gap-1 text-[13px] font-bold"><Star size={13} fill="currentColor" />{String(place.rating).replace('.', ',')} · {fmtN(place.reviews)} avis{hotel && place.priceLabel ? ` · ${place.priceLabel}` : ''}</span>
+          {place.recommended && <span className="rounded-md bg-sable px-3 py-1.5 text-[11px] font-bold">Recommandé pour vous</span>}
         </div>
       </div>
-    </div>
+      <div className="mt-4"><Tabs items={TABS} value={tab} onChange={setTab} /></div>
+
+      <div className="flex-1 px-5 pb-4 pt-4">
+        {tab === 'Infos' && <>
+          <div className="rounded-lg bg-sable p-4"><h2 className="t-h3">Infos pratiques</h2>{place.infos.map((l) => <p key={l} className="t-body mt-1 text-muted">{l}</p>)}</div>
+          {place.partner && <p className="t-small mt-3 rounded-lg border-l-[3px] border-orange bg-sable px-3 py-2">{place.partner}</p>}
+          {place.photos.length > 0 && <section className="mt-6"><SectionTitle action="Tout voir" onAction={() => setTab('Photos')}>Photos communauté</SectionTitle>
+            <div className="scroll-area -mx-5 flex shrink-0 gap-2 overflow-x-auto px-5">{place.photos.map((p) => <Photo key={p} src={p} className="h-[70px] w-[84px] shrink-0 rounded-md" />)}</div></section>}
+          <section className="mt-6"><SectionTitle action="Tout voir" onAction={() => setTab('Avis')}>Avis voyageurs</SectionTitle>
+            {all[0] ? <div className="flex items-start gap-2"><Avatar size={28} initials={all[0].who.slice(0, 1)} tone="sable" /><div className="flex-1"><div className="t-small font-bold">{all[0].who} · {all[0].role}</div><div className="t-small text-muted">« {all[0].text} »</div></div><Stars value={all[0].stars} size={11} /></div>
+              : <p className="t-body text-muted">Aucun avis pour le moment.</p>}
+            {place.google && <div className="mt-3 rounded-lg bg-sable px-3 py-2"><div className="t-small font-bold">Avis Google · {place.google.rating} ★ ({place.google.count})</div><div className="t-small text-muted">« {place.google.quote} »</div></div>}</section>
+        </>}
+
+        {tab === 'Photos' && (place.photos.length
+          ? <><h2 className="t-section mb-3">Photos · {place.name}</h2><div className="grid grid-cols-2 gap-2">{place.photos.map((p) => <Photo key={p} src={p} className="h-32 w-full rounded-lg" />)}</div></>
+          : <p className="t-body text-muted">Aucune photo pour le moment.</p>)}
+
+        {tab === 'Avis' && <>
+          <div className="rounded-lg bg-sable p-4"><div className="flex items-baseline gap-2"><span className="text-[28px] font-bold">{String(place.rating).replace('.', ',')}</span><Stars value={Math.round(place.rating)} /></div><p className="t-small text-muted">{fmtN(place.reviews + mine.length)} avis de la communauté</p></div>
+          <h2 className="t-section mb-2 mt-5">Avis récents</h2>
+          {all.length === 0 && <p className="t-body text-muted">Sois le premier à donner ton avis.</p>}
+          <ul className="flex flex-col gap-3">{all.map((r, i) => <li key={i} data-testid="review" className="border-b border-trait pb-3"><div className="flex items-center justify-between"><span className="t-small font-bold">{r.who} · {r.role}</span><Stars value={r.stars} size={12} /></div><p className="t-body mt-1 text-muted">« {r.text} »</p></li>)}</ul>
+          {place.google && <p className="t-small mt-3 rounded-lg bg-sable px-3 py-2"><b>Avis Google · {place.google.rating} ★ ({place.google.count})</b><br />« {place.google.quote} »</p>}
+          <div className="mt-4"><Button variant="secondary" onClick={() => setWriting(true)}>Écrire un avis</Button></div>
+        </>}
+
+        {tab === 'Événements' && (place.eventIds.length
+          ? <ul className="flex flex-col gap-2">{place.eventIds.map((eid) => { const e = eventById(eid)!; const d = addDays(today(), e.dayOffset); return (
+              <li key={eid}><button onClick={() => nav(`/event/${eid}`)} className="flex w-full items-center gap-3 rounded-lg bg-white p-3 text-left"><span className="flex w-11 flex-col items-center rounded-md bg-sable py-1.5"><span className="text-[17px] font-bold leading-none">{String(d.getDate()).padStart(2, '0')}</span><span className="text-[9px] font-bold text-orange">{monthAbbr(d)}</span></span><span><span className="t-h3 block text-[15px]">{e.title}</span><span className="t-small text-muted">{e.city} · {e.hour}</span></span></button></li>); })}</ul>
+          : <p className="t-body text-muted">Aucun événement prévu pour ce lieu.</p>)}
+      </div>
+
+      <div className="flex flex-col gap-2 px-5 pb-4">
+        {hotel
+          ? <Button variant="orange" onClick={() => showToast('Réservation non disponible dans le prototype')}>Voir l’offre</Button>
+          : <>
+            <Button variant="light" stripe={false} className={cx('min-h-11 text-[14px]')} onClick={addToTrip}>Ajouter à un itinéraire</Button>
+            <div className="grid grid-cols-2 gap-2"><Button variant="orange" className="min-h-11 text-[14px]" onClick={() => showToast('Réservation non disponible dans le prototype')}>Réserver la visite</Button><Button variant="light" stripe={false} className="min-h-11 text-[14px]" onClick={() => showToast('Création d’événement : bientôt disponible')}>Créer un événement</Button></div>
+          </>}
+      </div>
+
+      <Sheet open={writing} onClose={() => setWriting(false)} title="Écrire un avis">
+        <p className="t-small -mt-2 mb-3 text-muted">{place.name}</p>
+        <h3 className="t-label mb-1">Note</h3>
+        <div className="mb-3 flex gap-1">{[1, 2, 3, 4, 5].map((n) => <button key={n} aria-label={`${n} étoile${n > 1 ? 's' : ''}`} aria-pressed={n <= stars} onClick={() => setStars(n)} className="p-1 text-orange"><Star size={26} fill={n <= stars ? 'currentColor' : 'none'} /></button>)}</div>
+        <label className="block rounded-lg bg-sable px-4 py-3"><span className="t-label block">Ton avis</span><textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} placeholder="Partage ton expérience…" aria-label="Ton avis" className="t-body mt-1 w-full resize-none bg-transparent focus:outline-none" /></label>
+        <div className="mt-4"><Button disabled={!text.trim()} onClick={publish}>Publier</Button></div>
+      </Sheet>
+    </>
   );
 }

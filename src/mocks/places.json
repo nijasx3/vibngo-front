@@ -1,0 +1,346 @@
+{
+  "destination": {
+    "id": "rome",
+    "name": "Rome",
+    "country": "Italie",
+    "title": "Rome, Italie",
+    "image": "rome.jpg",
+    "weather": "28 °C",
+    "note": "Festival de musique ce week-end",
+    "stats": {
+      "activites": 234,
+      "hotels": 89,
+      "note": "4,8"
+    },
+    "forProfile": [
+      {
+        "label": "Patrimoine",
+        "count": "142 activités"
+      },
+      {
+        "label": "Culture",
+        "count": "56 activités"
+      },
+      {
+        "label": "Gastronomie",
+        "count": "38 activités"
+      }
+    ],
+    "trends": [
+      {
+        "name": "Fontaine de Trevi",
+        "source": "Instagram · 12 000 publications",
+        "placeId": "trevi",
+        "image": "trevi.jpg"
+      },
+      {
+        "name": "Pincio au coucher du soleil",
+        "source": "Tendance TikTok ce mois-ci",
+        "placeId": "pincio",
+        "image": "pincio.jpg"
+      }
+    ],
+    "partners": [
+      {
+        "name": "Hôtel Colosseum",
+        "sub": "4 ★ · −15 % avec VibnGo",
+        "placeId": "hotel-colosseum"
+      },
+      {
+        "name": "Teatro dell'Opera",
+        "sub": "Réservation directe",
+        "placeId": null
+      }
+    ],
+    "alert": "Festival vendredi soir · Affluence au Colisée"
+  },
+  "places": [
+    {
+      "id": "colisee",
+      "kind": "monument",
+      "cat": "Monuments",
+      "typeLabel": "Monument",
+      "name": "Colisée de Rome",
+      "address": "Piazza del Colosseo, 1 · Rome",
+      "rating": 4.9,
+      "reviews": 2847,
+      "image": "colisee.jpg",
+      "hero": "colisee-arches.jpg",
+      "photos": [
+        "colisee-ruines.jpg",
+        "colisee-bw.jpg",
+        "colisee-arches.jpg",
+        "colisee.jpg"
+      ],
+      "recommended": true,
+      "accessible": true,
+      "price": 16,
+      "infos": [
+        "9 h–19 h · Accessible · colosseo.it",
+        "16 € adulte · 2 € réduit · Gratuit pour les moins de 6 ans",
+        "Visite 1 h 30–2 h 30 · +39 06 3996 7700"
+      ],
+      "google": {
+        "rating": "4,8",
+        "count": "18 432",
+        "quote": "Un des monuments les plus impressionnants du monde."
+      },
+      "reviewsList": [
+        {
+          "who": "Marie L.",
+          "role": "Exploratrice",
+          "stars": 5,
+          "text": "Magnifique ! À voir absolument le matin."
+        },
+        {
+          "who": "Tom B.",
+          "role": "Explorateur",
+          "stars": 4,
+          "text": "La visite du matin était plus calme. Prévoyez du temps pour les gradins."
+        }
+      ],
+      "eventIds": [
+        "ev-visite-colisee",
+        "ev-balade-photo",
+        "ev-croquis"
+      ]
+    },
+    {
+      "id": "trevi",
+      "kind": "monument",
+      "cat": "Monuments",
+      "typeLabel": "Fontaine",
+      "name": "Fontaine de Trevi",
+      "address": "Piazza di Trevi · Rome",
+      "rating": 4.8,
+      "reviews": 1956,
+      "image": "trevi.jpg",
+      "hero": "trevi.jpg",
+      "photos": [
+        "trevi.jpg"
+      ],
+      "accessible": true,
+      "price": 0,
+      "free": true,
+      "infos": [
+        "Accès libre · Place piétonne",
+        "Affluence forte en journée : privilégiez le début de matinée ou la fin de soirée"
+      ],
+      "reviewsList": [],
+      "eventIds": []
+    },
+    {
+      "id": "pincio",
+      "kind": "monument",
+      "cat": "Points de vue",
+      "typeLabel": "Point de vue",
+      "name": "Pincio",
+      "address": "Piazza Napoleone I · Rome",
+      "rating": 4.7,
+      "reviews": 1204,
+      "image": "pincio.jpg",
+      "hero": "pincio.jpg",
+      "photos": [
+        "pincio.jpg",
+        "tibre.jpg"
+      ],
+      "accessible": true,
+      "price": 0,
+      "free": true,
+      "infos": [
+        "Terrasse panoramique sur la ville",
+        "Très belle lumière au coucher du soleil"
+      ],
+      "reviewsList": [],
+      "eventIds": []
+    },
+    {
+      "id": "borghese",
+      "kind": "monument",
+      "cat": "Musées",
+      "typeLabel": "Musée",
+      "name": "Musée Borghèse",
+      "address": "Piazzale Scipione Borghese, 5 · Rome",
+      "rating": 4.8,
+      "reviews": 3012,
+      "image": "borghese.jpg",
+      "hero": "borghese.jpg",
+      "photos": [
+        "borghese.jpg"
+      ],
+      "accessible": true,
+      "price": 15,
+      "infos": [
+        "Visite sur réservation",
+        "Comptez environ 2 h"
+      ],
+      "reviewsList": [],
+      "eventIds": []
+    },
+    {
+      "id": "colle-oppio",
+      "kind": "monument",
+      "cat": "Parcs",
+      "typeLabel": "Parc",
+      "name": "Parco del Colle Oppio",
+      "address": "Via Labicana · Rome",
+      "rating": 4.5,
+      "reviews": 642,
+      "image": "lac.jpg",
+      "hero": "lac.jpg",
+      "photos": [
+        "lac.jpg"
+      ],
+      "accessible": true,
+      "price": 0,
+      "free": true,
+      "infos": [
+        "Parc en hauteur face au Colisée",
+        "Accès libre"
+      ],
+      "reviewsList": [],
+      "eventIds": []
+    },
+    {
+      "id": "travertino",
+      "kind": "resto",
+      "cat": "Restaurants",
+      "typeLabel": "Restaurant",
+      "name": "Travertino Restaurant",
+      "address": "Rome",
+      "rating": 4.6,
+      "reviews": 388,
+      "image": null,
+      "hero": null,
+      "photos": [],
+      "accessible": true,
+      "price": 35,
+      "infos": [
+        "Déjeuner réservé · Table pour 2"
+      ],
+      "reviewsList": [],
+      "eventIds": []
+    },
+    {
+      "id": "hotel-colosseum",
+      "kind": "hotel",
+      "cat": "Hébergements",
+      "typeLabel": "Hôtel",
+      "name": "Hôtel Colosseum Palace",
+      "address": "Près du Colisée · Rome",
+      "rating": 4.7,
+      "reviews": 934,
+      "stars": 4,
+      "image": null,
+      "hero": null,
+      "photos": [],
+      "accessible": true,
+      "price": 140,
+      "priceLabel": "140 € / nuit",
+      "partner": "−15 % avec VibnGo · Réservation directe",
+      "infos": [
+        "4 étoiles · À proximité du programme",
+        "Réservation directe : −15 % avec VibnGo",
+        "Petit-déjeuner inclus · Wi-Fi gratuit"
+      ],
+      "reviewsList": [],
+      "eventIds": []
+    },
+    {
+      "id": "hotel-aurelia",
+      "kind": "hotel",
+      "cat": "Hébergements",
+      "typeLabel": "Hôtel",
+      "name": "Hôtel Aurelia",
+      "address": "Via dei Cappellari · 00186 Roma",
+      "rating": 4.6,
+      "reviews": 812,
+      "stars": 4,
+      "image": null,
+      "hero": null,
+      "photos": [],
+      "accessible": true,
+      "price": 145,
+      "priceLabel": "145 € / nuit",
+      "infos": [
+        "4 étoiles · Centre historique",
+        "Terrasse sur les toits",
+        "Annulation gratuite jusqu'à 48 h avant"
+      ],
+      "reviewsList": [],
+      "eventIds": []
+    },
+    {
+      "id": "hotel-trastevere",
+      "kind": "hotel",
+      "cat": "Hébergements",
+      "typeLabel": "Hôtel",
+      "name": "Casa Trastevere",
+      "address": "Trastevere · Rome",
+      "rating": 4.7,
+      "reviews": 455,
+      "stars": 3,
+      "image": null,
+      "hero": null,
+      "photos": [],
+      "accessible": false,
+      "price": 110,
+      "priceLabel": "110 € / nuit",
+      "infos": [
+        "3 étoiles · Trastevere",
+        "Petit-déjeuner italien",
+        "Wi-Fi gratuit"
+      ],
+      "reviewsList": [],
+      "eventIds": []
+    },
+    {
+      "id": "hotel-monti",
+      "kind": "hotel",
+      "cat": "Hébergements",
+      "typeLabel": "Hôtel",
+      "name": "Residenza Monti",
+      "address": "Monti · Rome",
+      "rating": 4.5,
+      "reviews": 301,
+      "stars": 3,
+      "image": null,
+      "hero": null,
+      "photos": [],
+      "accessible": true,
+      "price": 98,
+      "priceLabel": "98 € / nuit",
+      "infos": [
+        "3 étoiles · Quartier Monti",
+        "Chambres calmes",
+        "Wi-Fi gratuit"
+      ],
+      "reviewsList": [],
+      "eventIds": []
+    },
+    {
+      "id": "hotel-borghese",
+      "kind": "hotel",
+      "cat": "Hébergements",
+      "typeLabel": "Hôtel",
+      "name": "Villa Borghese Suites",
+      "address": "Près de la Villa Borghese · Rome",
+      "rating": 4.8,
+      "reviews": 269,
+      "stars": 5,
+      "image": null,
+      "hero": null,
+      "photos": [],
+      "accessible": true,
+      "price": 260,
+      "priceLabel": "260 € / nuit",
+      "infos": [
+        "5 étoiles · Villa Borghese",
+        "Spa et piscine",
+        "Petit-déjeuner inclus"
+      ],
+      "reviewsList": [],
+      "eventIds": []
+    }
+  ]
+}
