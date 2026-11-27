@@ -1,0 +1,214 @@
+{
+  "activities": [
+    {
+      "id": "act-surf",
+      "name": "Surf à Biarritz",
+      "meta": "Plein air · France",
+      "interested": 24,
+      "image": "surf.jpg",
+      "category": "Plein air",
+      "city": "France"
+    },
+    {
+      "id": "act-opera",
+      "name": "Opéra La Fenice",
+      "meta": "Culture · Venise",
+      "interested": 12,
+      "image": "opera.jpg",
+      "category": "Culture",
+      "city": "Venise"
+    },
+    {
+      "id": "act-escalade",
+      "name": "Escalade à Fontainebleau",
+      "meta": "Sport · France",
+      "interested": 18,
+      "image": "escalade.jpg",
+      "category": "Sport",
+      "city": "France"
+    },
+    {
+      "id": "act-pincio",
+      "name": "Balade au Pincio",
+      "meta": "Plein air · Rome",
+      "interested": 16,
+      "image": "pincio.jpg",
+      "category": "Plein air",
+      "city": "Rome"
+    },
+    {
+      "id": "act-borghese",
+      "name": "Visite du musée Borghèse",
+      "meta": "Culture · Rome",
+      "interested": 21,
+      "image": "borghese.jpg",
+      "category": "Culture",
+      "city": "Rome"
+    },
+    {
+      "id": "act-villa-este",
+      "name": "Jardins de la Villa d'Este",
+      "meta": "Patrimoine · Tivoli",
+      "interested": 14,
+      "image": "villa-este.jpg",
+      "category": "Patrimoine",
+      "city": "Tivoli"
+    },
+    {
+      "id": "act-colisee",
+      "name": "Visite du Colisée",
+      "meta": "Patrimoine · Rome",
+      "interested": null,
+      "sub": "Visite guidée",
+      "image": "colisee-bw.jpg",
+      "category": "Patrimoine",
+      "city": "Rome"
+    },
+    {
+      "id": "act-ada",
+      "name": "Balade à la Villa Ada",
+      "meta": "Plein air · Rome",
+      "interested": null,
+      "sub": "Parc et promenade",
+      "image": "lac.jpg",
+      "category": "Plein air",
+      "city": "Rome"
+    },
+    {
+      "id": "act-trevi",
+      "name": "Fontaine de Trevi",
+      "meta": "Patrimoine · Rome",
+      "interested": null,
+      "sub": "Balade en ville",
+      "image": "trevi.jpg",
+      "category": "Patrimoine",
+      "city": "Rome"
+    },
+    {
+      "id": "act-trastevere",
+      "name": "Balade à Trastevere",
+      "meta": "Culture · Rome",
+      "interested": null,
+      "sub": "Découverte du quartier",
+      "image": "trastevere.jpg",
+      "category": "Culture",
+      "city": "Rome"
+    },
+    {
+      "id": "act-tibre",
+      "name": "Promenade le long du Tibre",
+      "meta": "Plein air · Rome",
+      "interested": null,
+      "sub": "Balade au bord de l'eau",
+      "image": "tibre.jpg",
+      "category": "Plein air",
+      "city": "Rome"
+    }
+  ],
+  "users": [
+    {
+      "id": "claire",
+      "name": "Claire M.",
+      "sub": "Paris · Exploratrice Aventurière",
+      "initials": "CM"
+    },
+    {
+      "id": "tom",
+      "name": "Tom B.",
+      "sub": "Lyon · Explorateur Culturel",
+      "initials": "TB"
+    },
+    {
+      "id": "marie",
+      "name": "Marie Leclerc",
+      "sub": "Exploratrice",
+      "initials": "ML"
+    },
+    {
+      "id": "sarah",
+      "name": "Sarah D.",
+      "sub": "Exploratrice Culturelle",
+      "initials": "SD"
+    },
+    {
+      "id": "lucas",
+      "name": "Lucas",
+      "sub": "Voyageur VibnGo",
+      "initials": "LM"
+    },
+    {
+      "id": "lina",
+      "name": "Lina R.",
+      "sub": "Voyageuse Zen",
+      "initials": "LR"
+    }
+  ],
+  "events": [
+    {
+      "id": "ev-visite-colisee",
+      "title": "Visite guidée du Colisée",
+      "dayOffset": 1,
+      "city": "Rome",
+      "hour": "9 h"
+    },
+    {
+      "id": "ev-balade-photo",
+      "title": "Balade photo autour du Colisée",
+      "dayOffset": 2,
+      "city": "Rome",
+      "hour": "18 h",
+      "category": "PHOTOGRAPHIE",
+      "image": "colisee-ruines.jpg",
+      "credit": "Photo : Huseyn Ibadzade · Pexels",
+      "organizer": "Marie Leclerc",
+      "seats": 4,
+      "about": "On fait le tour du Colisée à pied pour photographier les arches et profiter de la lumière de fin de journée. Téléphone ou appareil photo, les deux conviennent.",
+      "meeting": "Devant le Colisée",
+      "meetingAddress": "Piazza del Colosseo, 1 · 00184 Roma, Italie",
+      "meetingNote": "Arrive 10 min avant le départ.",
+      "practical": "Gratuit · Environ 1 h 30 · Tous niveaux"
+    },
+    {
+      "id": "ev-croquis",
+      "title": "Croquis autour du Colisée",
+      "dayOffset": 4,
+      "city": "Rome",
+      "hour": "10 h"
+    },
+    {
+      "id": "ev-promenade",
+      "title": "Promenade au crépuscule",
+      "dayOffset": 6,
+      "city": "Rome",
+      "hour": "19 h"
+    },
+    {
+      "id": "ev-catacombes",
+      "title": "Visite des Catacombes",
+      "dayOffset": 8,
+      "city": "Rome",
+      "hour": "10 h"
+    },
+    {
+      "id": "ev-concert",
+      "title": "Concert au coucher du soleil",
+      "dayOffset": 9,
+      "city": "Florence",
+      "hour": "19 h"
+    },
+    {
+      "id": "ev-canaux",
+      "title": "Balade sur les canaux",
+      "dayOffset": 10,
+      "city": "Venise",
+      "hour": "17 h"
+    },
+    {
+      "id": "ev-seine",
+      "title": "Balade au bord de la Seine",
+      "dayOffset": 12,
+      "city": "Paris",
+      "hour": "17 h"
+    }
+  ]
+}

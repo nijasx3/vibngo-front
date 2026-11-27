@@ -1,66 +1,45 @@
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, MapPin } from 'lucide-react';
-import { Accordion, Badge, Button, Card, Chip, SectionTitle, Visual } from '../components/ui';
-import ItemCard from '../components/ItemCard';
-import { catalog } from '../api/mockApi';
+import { Bookmark, Landmark, Utensils, Palette } from 'lucide-react';
+import { Button, Header, PhotoCard, Photo, SectionTitle, cx } from '../components/ui';
+import { profileById, rome } from '../api/mockApi';
 import { useStore } from '../state/store';
-import { PROFILES } from '../lib/scoring';
-import { useState } from 'react';
+
+const TONES = ['bg-orange text-white', 'bg-[#dd8b8b] text-white', 'bg-sable text-brun'];
+const ICONS = [Landmark, Palette, Utensils];
 
 export default function Destination() {
   const nav = useNavigate();
-  const { user, resetDraft } = useStore();
-  const city = catalog.city;
-  const profile = PROFILES.find((p) => p.id === user?.traveler_type);
-  const [cat, setCat] = useState<string>('Tous');
-  const cats = ['Tous', ...Array.from(new Set(city.activites.map((a) => a.category!)))];
-  const acts = city.activites.filter((a) => cat === 'Tous' || a.category === cat);
-
+  const { user, toggleLike, showToast } = useStore();
+  const liked = !!user?.like.includes('dest-rome');
+  const profile = profileById(user?.traveler_type ?? null);
   return (
-    <div className="fade-up pb-4">
-      <Visual tone="orange" className="h-56 !items-end !justify-center p-4" icon={<MapPin size={64} />} label="Rome">
-        <button aria-label="Retour" onClick={() => nav(-1)} className="absolute left-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white text-brun shadow"><ArrowLeft size={22} /></button>
-        <div className="relative z-10 text-center text-white"><h1 className="t-hero" style={{ fontSize: 24 }}>Rome, Italie</h1><p className="t-body px-4">{city.description}</p></div>
-      </Visual>
-      <div className="flex flex-col gap-4 px-4 pt-4">
-        <div className="grid grid-cols-3 gap-2 text-center">
-          {[[String(city.stats.activites), 'Activités'], [String(city.stats.hotels), 'Hôtels'], [String(city.stats.note), 'Note communauté']].map(([n, l]) => (
-            <div key={l}><p className="t-number text-brun">{n}</p><p className="t-caption text-anthracite/70">{l}</p></div>
-          ))}
+    <>
+      <Header lead="DESTINATION" right={<button aria-label={liked ? 'Retirer des sauvegardes' : 'Sauvegarder'} aria-pressed={liked} onClick={() => { toggleLike('dest-rome'); showToast(liked ? 'Retiré de tes sauvegardes' : 'Ajouté à tes sauvegardes'); }} className="p-2"><Bookmark size={20} className={liked ? 'text-orange' : ''} fill={liked ? 'currentColor' : 'none'} /></button>} />
+      <div className="px-5">
+        <PhotoCard src={rome.image} title={rome.title} sub={`${rome.weather} · ${rome.note}`} height="h-[150px]" />
+        <div className="mt-4 grid grid-cols-3 divide-x divide-trait text-center">
+          <button onClick={() => nav('/explore?q=Rome&tab=Activités')} className="py-2"><div className="text-[26px] font-bold">{rome.stats.activites}</div><div className="t-small text-muted">Activités</div></button>
+          <button data-testid="hotels-stat" onClick={() => nav('/explore?q=Rome&tab=Lieux&type=Hébergements')} className="py-2"><div className="text-[26px] font-bold">{rome.stats.hotels}</div><div className="t-small text-muted">Hôtels</div></button>
+          <div className="py-2"><div className="text-[26px] font-bold">{rome.stats.note} ★</div><div className="t-small text-muted">Note communauté</div></div>
         </div>
-        <Button full onClick={() => { resetDraft('Rome'); nav('/create'); }}>Créer un itinéraire pour Rome</Button>
 
-        <section className="flex flex-col gap-2">
-          <SectionTitle>Activités par profil voyageur</SectionTitle>
-          <div className="scroll-area flex gap-2 overflow-x-auto">
-            {cats.map((c) => <Chip key={c} active={cat === c} onClick={() => setCat(c)}>{c}</Chip>)}
-          </div>
-          {profile && <p className="t-caption text-anthracite/70">Votre profil : <Badge tone="rose">{profile.name}</Badge></p>}
-          <div className="flex flex-col gap-2.5">{acts.slice(0, 4).map((a) => <ItemCard key={a.id} item={a} />)}</div>
-        </section>
+        <section className="mt-5"><SectionTitle>Pour ton profil {profile ? profile.name.split(' ')[0] : ''}</SectionTitle>
+          <div className="grid grid-cols-3 gap-2">{rome.forProfile.map((c, i) => { const I = ICONS[i]; return (
+            <div key={c.label} className={cx('rounded-lg px-3 py-3', TONES[i])}><I size={18} /><div className="mt-3 text-[13px] font-bold">{c.label}</div><div className="text-[10px] opacity-90">{c.count}</div></div>); })}</div></section>
 
-        <section className="flex flex-col gap-2">
-          <SectionTitle action="Voir les hôtels" onAction={() => nav('/explore')}>Hôtels à Rome</SectionTitle>
-          <div className="flex flex-col gap-2.5">{city.hotels.slice(0, 2).map((h) => <ItemCard key={h.id} item={h} />)}</div>
-        </section>
+        <section className="mt-6"><SectionTitle>Tendances sur les réseaux</SectionTitle>
+          <div className="flex flex-col gap-3">{rome.trends.map((t) => (
+            <div key={t.name} className="flex items-center gap-3"><Photo src={t.image} className="h-12 w-14 rounded-md" /><div className="min-w-0 flex-1"><div className="t-h3 text-[15px]">{t.name}</div><div className="t-small text-muted">{t.source}</div></div>
+              <button onClick={() => nav(`/place/${t.placeId}`)} className="rounded-md bg-sable px-3 py-2 text-[12px] font-bold">Explorer</button></div>))}</div></section>
 
-        <section className="flex flex-col gap-2">
-          <SectionTitle>Lieux incontournables</SectionTitle>
-          <div className="flex flex-col gap-2.5">{catalog.country.point_d_interet.slice(0, 3).map((p) => <ItemCard key={p.id} item={p} />)}</div>
-        </section>
-
-        <Accordion title="Notes et revues de la communauté">
-          <p className="t-body text-anthracite/90">Note moyenne {city.stats.note}/5. « Une ville qui se découvre à pied, avec une pause gelato entre deux monuments. » — Marie</p>
-        </Accordion>
-        <Accordion title="Partenaires à Rome">
-          <div className="flex flex-col gap-2">
-            {['Offre hébergement partenaire', 'Offre visites guidées'].map((o) => <Card key={o} className="flex items-center justify-between gap-2"><span className="t-card text-brun">{o}</span><Button variant="outline" className="!min-h-9 !px-3">Voir</Button></Card>)}
-          </div>
-        </Accordion>
-        <Accordion title="Alertes locales">
-          <p className="t-body text-anthracite/90">Aucune alerte en cours à Rome. Pensez à surveiller les horaires des transports les jours de grève.</p>
-        </Accordion>
+        <section className="mt-6"><SectionTitle>Partenaires à Rome</SectionTitle>
+          <div className="grid grid-cols-2 gap-2">{rome.partners.map((p) => (
+            <div key={p.name} className="rounded-lg bg-sable p-3"><div className="t-h3 text-[14px]">{p.name}</div><div className="t-small text-muted">{p.sub}</div>
+              <button onClick={() => (p.placeId ? nav(`/place/${p.placeId}`) : showToast('Réservation non disponible dans le prototype'))} className="mt-3 text-[12px] font-bold">Voir l’offre ↗</button></div>))}</div>
+          <p className="t-small mt-3 rounded-lg border-l-[3px] border-orange bg-sable px-3 py-2"><b>Alerte locale</b> &nbsp; {rome.alert}</p></section>
       </div>
-    </div>
+      <div className="flex-1" />
+      <div className="px-5 pb-4 pt-5"><Button variant="orange" data-testid="create-from-destination" onClick={() => nav('/create')}>Créer un itinéraire</Button></div>
+    </>
   );
 }

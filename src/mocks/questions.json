@@ -23,6 +23,29 @@
     ]
   },
   {
+    "id": "q2",
+    "dimension": "urbanite",
+    "text": "Lorsque vous choisissez une destination, quel cadre vous attire le plus ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "Centre-ville animé"
+      },
+      {
+        "key": "B",
+        "label": "Ville proche de la nature"
+      },
+      {
+        "key": "C",
+        "label": "Petite ville calme"
+      },
+      {
+        "key": "D",
+        "label": "Nature et grands espaces"
+      }
+    ]
+  },
+  {
     "id": "q3",
     "dimension": "intensite",
     "text": "Quel est votre rythme de voyage idéal ?",
@@ -42,6 +65,29 @@
       {
         "key": "D",
         "label": "Séjour très tranquille"
+      }
+    ]
+  },
+  {
+    "id": "q4",
+    "dimension": "intensite",
+    "text": "Combien d'activités aimez-vous prévoir dans une journée ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "Le maximum possible"
+      },
+      {
+        "key": "B",
+        "label": "Plusieurs activités"
+      },
+      {
+        "key": "C",
+        "label": "Une ou deux activités"
+      },
+      {
+        "key": "D",
+        "label": "Aucune obligation, selon mes envies"
       }
     ]
   },
@@ -69,6 +115,29 @@
     ]
   },
   {
+    "id": "q6",
+    "dimension": "planification",
+    "text": "Comment réagissez-vous face à un changement de programme ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "Je préfère l'éviter"
+      },
+      {
+        "key": "B",
+        "label": "Je l'accepte avec une alternative prévue"
+      },
+      {
+        "key": "C",
+        "label": "Je m'adapte facilement"
+      },
+      {
+        "key": "D",
+        "label": "J'aime improviser"
+      }
+    ]
+  },
+  {
     "id": "q7",
     "dimension": "social",
     "text": "Quelle place les rencontres occupent-elles pendant vos voyages ?",
@@ -88,6 +157,121 @@
       {
         "key": "D",
         "label": "Je privilégie les moments seul"
+      }
+    ]
+  },
+  {
+    "id": "q8",
+    "dimension": "social",
+    "text": "Dans quel contexte préférez-vous voyager ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "En groupe et dans des lieux animés"
+      },
+      {
+        "key": "B",
+        "label": "Avec des amis et ouvert aux rencontres"
+      },
+      {
+        "key": "C",
+        "label": "En petit groupe proche"
+      },
+      {
+        "key": "D",
+        "label": "Seul ou dans un environnement calme"
+      }
+    ]
+  },
+  {
+    "id": "q9",
+    "dimension": "confort",
+    "text": "Quel niveau de confort recherchez-vous ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "Haut de gamme"
+      },
+      {
+        "key": "B",
+        "label": "Confort standard"
+      },
+      {
+        "key": "C",
+        "label": "Économique mais confortable"
+      },
+      {
+        "key": "D",
+        "label": "Simple et fonctionnel"
+      }
+    ]
+  },
+  {
+    "id": "q10",
+    "dimension": "confort",
+    "text": "Quel type d'hébergement privilégiez-vous ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "Hôtel premium"
+      },
+      {
+        "key": "B",
+        "label": "Hôtel ou appartement confortable"
+      },
+      {
+        "key": "C",
+        "label": "Hébergement économique"
+      },
+      {
+        "key": "D",
+        "label": "Auberge ou hébergement simple"
+      }
+    ]
+  },
+  {
+    "id": "q11",
+    "dimension": "decouverte",
+    "text": "Quels lieux souhaitez-vous principalement découvrir ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "Les incontournables"
+      },
+      {
+        "key": "B",
+        "label": "Un mélange de lieux connus et locaux"
+      },
+      {
+        "key": "C",
+        "label": "Principalement des lieux locaux"
+      },
+      {
+        "key": "D",
+        "label": "Des endroits méconnus"
+      }
+    ]
+  },
+  {
+    "id": "q12",
+    "dimension": "decouverte",
+    "text": "Quelle expérience recherchez-vous dans une destination ?",
+    "options": [
+      {
+        "key": "A",
+        "label": "Voir les lieux emblématiques"
+      },
+      {
+        "key": "B",
+        "label": "Mélanger visites classiques et expériences locales"
+      },
+      {
+        "key": "C",
+        "label": "Découvrir la culture et la vie locale"
+      },
+      {
+        "key": "D",
+        "label": "Explorer hors des circuits touristiques"
       }
     ]
   }

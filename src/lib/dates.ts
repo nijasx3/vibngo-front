@@ -10,3 +10,12 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 export const fmtLong = (d: Date) => `${cap(DAYS[d.getDay()])} ${d.getDate()} ${MONTHS[d.getMonth()]}`;
 export const fmtShort = (d: Date) => `${cap(DAYS[d.getDay()]).slice(0, 3)}. ${d.getDate()}`;
 export const fmtDay = (d: Date) => `${d.getDate()} ${MONTHS[d.getMonth()]}`;
+const ABBR = ['JANV.', 'FÉVR.', 'MARS', 'AVR.', 'MAI', 'JUIN', 'JUIL.', 'AOÛT', 'SEPT.', 'OCT.', 'NOV.', 'DÉC.'];
+export const monthAbbr = (d: Date) => ABBR[d.getMonth()];
+const SHORT = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'];
+/** « 4–11 juillet 2025 » (ou « 28 juin – 5 juil. 2025 » à cheval sur deux mois). */
+export const fmtRange = (a: Date, b: Date) =>
+  a.getMonth() === b.getMonth()
+    ? `${a.getDate()}–${b.getDate()} ${MONTHS[b.getMonth()]} ${b.getFullYear()}`
+    : `${a.getDate()} ${SHORT[a.getMonth()]} – ${b.getDate()} ${SHORT[b.getMonth()]} ${b.getFullYear()}`;
+export const fmtDayMonth = (d: Date) => `${d.getDate()} ${MONTHS[d.getMonth()]}`;

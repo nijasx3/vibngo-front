@@ -1,34 +1,60 @@
 import { create } from 'zustand';
-import type { Draft, Itinerary, Parameters, UserActivity } from '../types';
-import { addDays, iso, parseISO, today } from '../lib/dates';
-import { community_, itineraryTemplate, userSeed } from '../api/mockApi';
+import type { Draft, Itinerary, Parameters, Review, Stop, UserActivity } from '../types';
+import { addDays, iso, today } from '../lib/dates';
+import { buildManualItinerary, buildVibiItinerary, emptyDays } from '../lib/itinerary';
+import { ACTIVITIES, communityData, userSeed } from '../api/mockApi';
 
 export interface User {
   name: string;
-  traveler_type: string | null; // id de profil
+  lastName: string;
+  city: string;
+  bio: string;
+  traveler_type: string | null; // id de profil, null = « Nouveau voyageur »
   current_itinerary: Itinerary | null;
-  like: string[]; // ids des lieux / hôtels sauvegardés
+  like: string[]; // ids des lieux / hôtels / destinations sauvegardés
   parameters: Parameters;
   friends: string[]; // ids
 }
 
+export const makeDraft = (): Draft => {
+  const start = iso(today());
+  const end = iso(addDays(today(), 7));
+  return { destination: 'Rome, Italie', startDate: start, endDate: end, budget: 'Entre 1 000 € et 2 000 €', transportOut: 'Avion · Depuis Paris CDG', transportBack: 'Rome · Ville d’arrivée', lodging: 'Hôtel · Centre-ville', days: emptyDays(start, end) };
+};
+
 interface State {
   user: User | null;
   answers: string[];
+  visited: string[];
+  quizDate: string | null;
+  /** Inscriptions (forme du Word : name, offered_by, subscriptions, date). */
   activities: UserActivity[];
-  offered: Record<string, number>; // id activité proposée -> nombre d'inscrits courant
-  joined: string[];
+  eventsJoined: string[];
+  requested: string[];
+  maybe: boolean;
+  proposal: Itinerary | null;
   draft: Draft;
+  reviews: Record<string, Review[]>;
   toast: string | null;
   signup: (name: string) => void;
   setAnswers: (a: string[]) => void;
-  setProfile: (id: string) => void;
+  setVisited: (v: string[]) => void;
+  setProfile: (id: string | null) => void;
+  updateProfile: (p: Partial<Pick<User, 'name' | 'lastName' | 'city' | 'bio'>>) => void;
   setParam: <K extends keyof Parameters>(k: K, v: Parameters[K]) => void;
   toggleLike: (id: string) => void;
-  join: (id: string) => void;
-  leave: (id: string) => void;
+  joinInvitation: () => void;
+  leaveInvitation: () => void;
+  setMaybe: (v: boolean) => void;
+  toggleActivity: (id: string) => void;
+  toggleEvent: (id: string) => void;
+  requestViber: (id: string) => void;
+  addReview: (placeId: string, r: Review) => void;
+  setProposal: (it: Itinerary | null) => void;
+  newProposal: () => Itinerary;
   setDraft: (d: Partial<Draft>) => void;
-  resetDraft: (destination?: string) => void;
+  resetDraft: () => void;
+  addDraftStop: (day: number, s: Stop) => void;
   saveItinerary: (it: Itinerary) => void;
   updateItinerary: (fn: (it: Itinerary) => Itinerary | null, errorMsg?: string) => void;
   loadDemoItinerary: () => void;
@@ -37,86 +63,77 @@ interface State {
   reset: () => void;
 }
 
-
-export const makeDraft = (destination = ''): Draft => ({
-  destination,
-  startDate: iso(today()),
-  endDate: iso(addDays(today(), 2)),
-  budget: '800 €',
-  constraints: '',
-  transportOut: 'Avion',
-  transportBack: 'Avion',
-  lodging: 'Hôtel',
-  travelers: 1,
-  interests: ['Histoire', 'Gastronomie'],
-  invited: [],
-});
-
 const initial = {
   user: null as User | null,
   answers: [] as string[],
+  visited: [] as string[],
+  quizDate: null as string | null,
   activities: [] as UserActivity[],
-  offered: Object.fromEntries(community_.offeredActivities.map((a) => [a.id, a.subscriptions])) as Record<string, number>,
-  joined: [] as string[],
+  eventsJoined: [] as string[],
+  requested: [] as string[],
+  maybe: false,
+  proposal: null as Itinerary | null,
   draft: makeDraft(),
+  reviews: {} as Record<string, Review[]>,
   toast: null as string | null,
 };
 
-export const buildItinerary = (destination: string, d: Draft): Itinerary => ({
-  id: 'it-' + Date.now(),
-  title: itineraryTemplate.title,
-  destination: destination || 'Rome',
-  startDate: d.startDate,
-  endDate: iso(addDays(parseISO(d.startDate), itineraryTemplate.days.length - 1)),
-  travelers: d.travelers,
-  days: itineraryTemplate.days.map((day) => ({ label: day.label, items: day.items.map((i) => ({ ...i, kind: i.kind as 'poi' | 'activity' | 'resto' })) })),
-  validated: false,
-});
+const INVITATION_ID = communityData.invitation.id;
 
 export const useStore = create<State>()((set, get) => ({
-      ...initial,
-      signup: (name) =>
-        set({
-          user: { ...structuredClone(userSeed), name: name.trim() } as User,
-        }),
-      setAnswers: (answers) => set({ answers }),
-      setProfile: (id) => set((s) => (s.user ? { user: { ...s.user, traveler_type: id } } : s)),
-      setParam: (k, v) => set((s) => (s.user ? { user: { ...s.user, parameters: { ...s.user.parameters, [k]: v } } } : s)),
-      toggleLike: (id) =>
-        set((s) => {
-          if (!s.user) return s;
-          const like = s.user.like.includes(id) ? s.user.like.filter((x) => x !== id) : [...s.user.like, id];
-          return { user: { ...s.user, like } };
-        }),
-      join: (id) => {
-        const a = community_.offeredActivities.find((x) => x.id === id);
-        if (!a || get().joined.includes(id)) return;
-        const date = iso(addDays(today(), a.dayOffset));
-        set((s) => ({
-          joined: [...s.joined, id],
-          offered: { ...s.offered, [id]: (s.offered[id] ?? a.subscriptions) + 1 },
-          activities: [...s.activities, { id, name: a.name, offered_by: a.offered_by, subscriptions: (s.offered[id] ?? a.subscriptions) + 1, date }],
-        }));
-      },
-      leave: (id) =>
-        set((s) => ({
-          joined: s.joined.filter((x) => x !== id),
-          offered: { ...s.offered, [id]: Math.max(0, (s.offered[id] ?? 1) - 1) },
-          activities: s.activities.filter((a) => a.id !== id),
-        })),
-      setDraft: (d) => set((s) => ({ draft: { ...s.draft, ...d } })),
-      resetDraft: (destination = '') => set({ draft: makeDraft(destination) }),
-      saveItinerary: (it) => set((s) => (s.user ? { user: { ...s.user, current_itinerary: it } } : s)),
-      updateItinerary: (fn, errorMsg) => {
-        const it = get().user?.current_itinerary;
-        if (!it) return;
-        const next = fn(it);
-        if (!next) { if (errorMsg) set({ toast: errorMsg }); return; }
-        set((s) => (s.user ? { user: { ...s.user, current_itinerary: next } } : s));
-      },
-      loadDemoItinerary: () =>
-        set((s) => (s.user ? { user: { ...s.user, current_itinerary: { ...buildItinerary('Rome', makeDraft('Rome')), validated: true } } } : s)),
-      showToast: (toast) => set({ toast }),
-      hideToast: () => set({ toast: null }),
-      reset: () => set({ ...initial, draft: makeDraft(), offered: { ...initial.offered } }),
-    }));
+  ...initial,
+  signup: (name) => set({ ...structuredClone(initial), draft: makeDraft(), user: { ...structuredClone(userSeed), name: name.trim() } as User }),
+  setAnswers: (answers) => set({ answers }),
+  setVisited: (visited) => set({ visited }),
+  setProfile: (id) => set((s) => (s.user ? { user: { ...s.user, traveler_type: id }, quizDate: id ? iso(today()) : s.quizDate } : s)),
+  updateProfile: (p) => set((s) => (s.user ? { user: { ...s.user, ...p } } : s)),
+  setParam: (k, v) => set((s) => (s.user ? { user: { ...s.user, parameters: { ...s.user.parameters, [k]: v } } } : s)),
+  toggleLike: (id) => set((s) => {
+    if (!s.user) return s;
+    const like = s.user.like.includes(id) ? s.user.like.filter((x) => x !== id) : [...s.user.like, id];
+    return { user: { ...s.user, like } };
+  }),
+  // Invitation d'un ami (Communauté) : « Je participe » ajoute l'activité à user.activities
+  joinInvitation: () => {
+    if (get().activities.some((a) => a.id === INVITATION_ID)) return;
+    const inv = communityData.invitation;
+    const date = iso(addDays(today(), inv.dayOffset));
+    set((s) => ({ maybe: false, activities: [...s.activities, { id: inv.id, name: inv.name, offered_by: inv.author, subscriptions: inv.registered + 1, date }] }));
+  },
+  leaveInvitation: () => set((s) => ({ activities: s.activities.filter((a) => a.id !== INVITATION_ID) })),
+  setMaybe: (maybe) => set({ maybe }),
+  // Activités de l'onglet Explorer : « S'inscrire » / « Inscrit »
+  toggleActivity: (id) => {
+    const a = ACTIVITIES.find((x) => x.id === id);
+    if (!a) return;
+    set((s) => {
+      const on = s.activities.some((x) => x.id === id);
+      const count = (a.interested ?? 0) + (on ? 0 : 1);
+      return {
+        activities: on ? s.activities.filter((x) => x.id !== id) : [...s.activities, { id, name: a.name, offered_by: 'Vibngo', subscriptions: count, date: iso(today()) }],
+      };
+    });
+  },
+  toggleEvent: (id) => set((s) => ({ eventsJoined: s.eventsJoined.includes(id) ? s.eventsJoined.filter((x) => x !== id) : [...s.eventsJoined, id] })),
+  requestViber: (id) => set((s) => (s.requested.includes(id) ? s : { requested: [...s.requested, id] })),
+  addReview: (placeId, r) => set((s) => ({ reviews: { ...s.reviews, [placeId]: [r, ...(s.reviews[placeId] ?? [])] } })),
+  setProposal: (proposal) => set({ proposal }),
+  newProposal: () => { const it = buildVibiItinerary(); set({ proposal: it }); return it; },
+  setDraft: (d) => set((s) => ({ draft: { ...s.draft, ...d } })),
+  resetDraft: () => set({ draft: makeDraft() }),
+  addDraftStop: (day, stop) => set((s) => ({ draft: { ...s.draft, days: s.draft.days.map((d, i) => (i === day ? [...d, stop].sort((a, b) => a.time.localeCompare(b.time)) : d)) } })),
+  saveItinerary: (it) => set((s) => (s.user ? { user: { ...s.user, current_itinerary: { ...it, saved: true } } } : s)),
+  updateItinerary: (fn, errorMsg) => {
+    const it = get().user?.current_itinerary;
+    if (!it) return;
+    const next = fn(it);
+    if (!next) { if (errorMsg) set({ toast: errorMsg }); return; }
+    set((s) => (s.user ? { user: { ...s.user, current_itinerary: next } } : s));
+  },
+  loadDemoItinerary: () => set((s) => (s.user ? { user: { ...s.user, current_itinerary: { ...buildVibiItinerary(), saved: true } } } : s)),
+  showToast: (toast) => set({ toast }),
+  hideToast: () => set({ toast: null }),
+  reset: () => set({ ...structuredClone(initial), draft: makeDraft() }),
+}));
+
+export { buildManualItinerary };

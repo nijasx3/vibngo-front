@@ -1,66 +1,60 @@
 import { useNavigate } from 'react-router-dom';
-import { Accordion, Button, Card, Header, Toggle } from '../components/ui';
+import { CalendarDays, Lock, MapPin, Route, Users } from 'lucide-react';
+import { Button, Header, SectionTitle, Toggle } from '../components/ui';
+import { profileById } from '../api/mockApi';
 import { useStore } from '../state/store';
-import { PROFILES } from '../lib/scoring';
+import { parseISO, fmtDayMonth } from '../lib/dates';
 import type { Parameters } from '../types';
+import type { ReactNode } from 'react';
 
-function Row({ label, hint, k, disabled }: { label: string; hint?: string; k: keyof Parameters; disabled?: boolean }) {
+function Row({ icon, title, sub, k, label }: { icon: ReactNode; title: string; sub: string; k: keyof Parameters; label: string }) {
   const { user, setParam } = useStore();
   return (
-    <div className="flex items-center justify-between gap-3 py-2.5">
-      <div className="min-w-0"><p className="t-body-m text-brun">{label}</p>{hint && <p className="t-caption text-anthracite/60">{hint}</p>}</div>
-      <Toggle on={user!.parameters[k]} disabled={disabled} label={label} onChange={(v) => setParam(k, v)} />
+    <div className="flex items-center gap-3 border-b border-trait py-3.5">
+      <span className="w-5">{icon}</span>
+      <div className="min-w-0 flex-1"><div className="t-h3 text-[15px]">{title}</div><div className="t-small text-muted">{sub}</div></div>
+      <Toggle label={label} checked={user!.parameters[k]} onChange={(v) => setParam(k, v)} />
     </div>
   );
 }
 
 export default function Settings() {
   const nav = useNavigate();
-  const { user, reset, loadDemoItinerary, showToast } = useStore();
-  if (!user) return null;
-  const p = user.parameters;
-  const profile = PROFILES.find((x) => x.id === user.traveler_type);
+  const { user, quizDate, loadDemoItinerary, reset, showToast } = useStore();
+  const profile = profileById(user!.traveler_type);
   return (
-    <div className="fade-up pb-4">
-      <Header title="Paramètres" back />
-      <div className="flex flex-col gap-4 px-4">
-        <Card>
-          <p className="t-section text-brun">Profil voyageur</p>
-          <p className="t-card mt-1 text-orange-dark">{profile?.name ?? 'Non défini'}</p>
-          <div className="mt-3 flex gap-2">
-            <Button variant="outline" className="!min-h-9" onClick={() => nav('/result')}>Consulter</Button>
-            <Button variant="outline" className="!min-h-9" onClick={() => nav('/quiz')}>Refaire le test</Button>
-          </div>
-        </Card>
+    <>
+      <Header title="Paramètres" />
+      <div className="px-5 pb-6">
+        <section><SectionTitle>Profil voyageur</SectionTitle>
+          <div className="rounded-lg border-l-[3px] border-orange bg-brun p-4 text-white">
+            <div className="t-h3 text-[20px]">{profile?.name ?? 'Nouveau voyageur'}</div>
+            <p className="t-small mt-1 text-white/85">{profile?.description ?? 'Passe le questionnaire pour découvrir ton profil voyageur.'}</p>
+            <div className="mt-3 flex items-center justify-between"><span className="t-small text-[10px] text-white/70">{quizDate ? `Dernier test · ${fmtDayMonth(parseISO(quizDate))}` : 'Aucun test passé'}</span>
+              <button onClick={() => nav('/intro')} className="rounded-md bg-white px-3 py-1.5 text-[12px] font-bold text-brun">{profile ? 'Refaire' : 'Commencer'}</button></div>
+          </div></section>
 
-        <section className="rounded-2xl border border-line bg-white px-4 py-3">
-          <h2 className="t-section text-brun">Sécurité et vie privée</h2>
-          <div className="divide-y divide-line">
-            <Row k="geo" label="Géolocalisation" hint="Carte, lieux et amis à proximité" />
-            <Row k="sharePosition" label="Partager ma position avec mes amis" disabled={!p.geo} />
-            <Row k="profileVisible" label="Profil visible par mes amis" />
-          </div>
-        </section>
+        <section className="mt-6"><SectionTitle>Sécurité et vie privée</SectionTitle>
+          <Row icon={<MapPin size={18} />} title="Géolocalisation" sub="Suivi en temps réel de votre position" k="geo" label="Géolocalisation" />
+          <Row icon={<Users size={18} />} title="Visibilité communauté" sub="Votre profil est visible des autres voyageurs" k="visibility" label="Visibilité communauté" />
+          <Row icon={<Lock size={18} />} title="Partage de données" sub="Amélioration des recommandations IA" k="dataSharing" label="Partage de données" /></section>
 
-        <section className="rounded-2xl border border-line bg-white px-4 py-3">
-          <h2 className="t-section text-brun">Notifications</h2>
-          <div className="divide-y divide-line">
-            <Row k="notif" label="Notifications" hint="Rappels et messages de l'application" />
-            <Row k="reminders" label="Rappels d'activités" disabled={!p.notif} />
-            <Row k="friendMessages" label="Messages de mes amis" disabled={!p.notif} />
-          </div>
-        </section>
+        <section className="mt-6"><SectionTitle>Notifications</SectionTitle>
+          <Row icon={<CalendarDays size={18} />} title="Événements à proximité" sub="Alertes sur les lieux et événements proches" k="notif" label="Événements à proximité" />
+          <Row icon={<Route size={18} />} title="Modifications d’itinéraire" sub="Suggestions pour optimiser votre parcours" k="itineraryChanges" label="Modifications d’itinéraire" />
+          <Row icon={<Users size={18} />} title="Activités des amis" sub="Amis à proximité de vos lieux favoris" k="friendActivity" label="Activités des amis" /></section>
 
-        <Card><p className="t-section text-brun">Mode hors-ligne</p><p className="t-body mt-1 text-anthracite/80">Activé automatiquement lorsque vous n'avez plus de réseau.</p></Card>
+        <section className="mt-6"><SectionTitle>Mode hors ligne</SectionTitle>
+          <div className="rounded-lg bg-sable p-4"><div className="flex items-center justify-between"><div><div className="t-h3 text-[15px]">Mise en cache automatique</div><div className="t-small text-muted">Planning · Carte · Réservations</div></div>
+            <button onClick={() => showToast('Données mises à jour (simulation)')} className="rounded-md bg-white px-3 py-1.5 text-[12px] font-bold">Actualiser</button></div>
+            <p className="t-small mt-3 inline-block rounded bg-vert px-2.5 py-1">✓ Rome · 7 jours en cache</p></div></section>
 
-        <Accordion title="Outils pour les tests (modérateur)">
+        <section className="mt-6"><SectionTitle sub="Réservé aux tests utilisateurs (hors design)">Outils de test</SectionTitle>
           <div className="flex flex-col gap-2">
-            <Button variant="outline" onClick={() => { loadDemoItinerary(); showToast('Itinéraire de démonstration chargé'); }}>Charger un itinéraire de démonstration</Button>
-            <Button variant="dark" onClick={() => { if (window.confirm('Réinitialiser le prototype ? Toutes les données locales seront effacées.')) { reset(); nav('/signup', { replace: true }); } }}>Réinitialiser le prototype</Button>
-            <p className="t-caption text-anthracite/60">Rafraîchir la page déconnecte aussi l'utilisateur et remet tout à zéro.</p>
-          </div>
-        </Accordion>
+            <Button variant="light" stripe={false} data-testid="load-demo" onClick={() => { loadDemoItinerary(); showToast('Voyage à Rome chargé'); }}>Charger un voyage à Rome en cours</Button>
+            <Button variant="secondary" data-testid="logout" onClick={() => { reset(); nav('/'); }}>Se déconnecter</Button>
+          </div></section>
       </div>
-    </div>
+    </>
   );
 }

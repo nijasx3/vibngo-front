@@ -1,19 +1,22 @@
 {
   "name": "",
+  "lastName": "",
+  "city": "",
+  "bio": "",
   "traveler_type": null,
   "current_itinerary": null,
   "like": [],
   "parameters": {
     "geo": true,
+    "visibility": true,
+    "dataSharing": false,
     "notif": true,
-    "sharePosition": true,
-    "profileVisible": true,
-    "reminders": true,
-    "friendMessages": true
+    "itineraryChanges": true,
+    "friendActivity": true
   },
   "friends": [
-    "paul",
     "marie",
+    "tom",
     "sarah",
     "lucas"
   ]

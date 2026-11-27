@@ -1,0 +1,297 @@
+{
+  "title": "Roma Aeterna",
+  "budget": "1 450 € / pers.",
+  "travelers": 2,
+  "nights": 7,
+  "transport": {
+    "out": "Train · Paris → Rome Termini",
+    "back": "Train · Rome Termini → Paris",
+    "hotel": "Hôtel Colosseum Palace · 7 nuits",
+    "lunch": "Déjeuner chez Travertino"
+  },
+  "days": [
+    [
+      [
+        "09:00",
+        "Colisée de Rome",
+        "Visite guidée · 2 h",
+        "À pied · 600 m · 8 min",
+        "Payé"
+      ],
+      [
+        "12:30",
+        "Travertino Restaurant",
+        "Déjeuner · Table pour 2",
+        "À pied · 800 m · 11 min",
+        null
+      ],
+      [
+        "15:00",
+        "Forum Romain",
+        "Site archéologique · 1 h 30 · Gratuit",
+        "À pied · 1,2 km · 16 min",
+        null
+      ],
+      [
+        "16:30",
+        "Pause gelato près du Panthéon",
+        "Pause",
+        "À pied · 500 m · 7 min",
+        null
+      ],
+      [
+        "18:00",
+        "Balade autour de la Piazza Navona",
+        "Fin d'après-midi",
+        null,
+        null
+      ],
+      [
+        "19:30",
+        "Dîner à Trastevere",
+        "Soir",
+        null,
+        null
+      ],
+      [
+        "21:00",
+        "Promenade le long du Tibre",
+        "Fin de journée",
+        null,
+        null
+      ]
+    ],
+    [
+      [
+        "09:00",
+        "Musées du Vatican",
+        "Visite · 3 h",
+        null,
+        "Payé"
+      ],
+      [
+        "13:00",
+        "Déjeuner près du Vatican",
+        "Pause déjeuner",
+        null,
+        null
+      ],
+      [
+        "15:30",
+        "Basilique Saint-Pierre",
+        "Monument · 1 h 30",
+        null,
+        null
+      ],
+      [
+        "18:30",
+        "Aperitivo au coucher du soleil",
+        "Soir",
+        null,
+        null
+      ]
+    ],
+    [
+      [
+        "10:00",
+        "Via Appia Antica à vélo",
+        "Activité · 3 h",
+        null,
+        null
+      ],
+      [
+        "14:00",
+        "Cours de cuisine : pâtes fraîches",
+        "Atelier · 2 h 30",
+        null,
+        null
+      ],
+      [
+        "17:30",
+        "Villa Borghese et son parc",
+        "Promenade · 1 h 30",
+        null,
+        null
+      ]
+    ],
+    [
+      [
+        "09:30",
+        "Musée Borghèse",
+        "Musée · 2 h",
+        null,
+        null
+      ],
+      [
+        "12:30",
+        "Déjeuner à Monti",
+        "Pause déjeuner",
+        null,
+        null
+      ],
+      [
+        "15:00",
+        "Place d'Espagne",
+        "Monument · 1 h",
+        null,
+        null
+      ],
+      [
+        "16:30",
+        "Fontaine de Trevi",
+        "Patrimoine · 30 min",
+        null,
+        null
+      ]
+    ],
+    [
+      [
+        "10:00",
+        "Visite des Catacombes",
+        "Visite guidée · 1 h 30",
+        null,
+        null
+      ],
+      [
+        "13:00",
+        "Déjeuner sur la Via Appia",
+        "Pause déjeuner",
+        null,
+        null
+      ],
+      [
+        "15:30",
+        "Panthéon",
+        "Monument · 1 h",
+        null,
+        null
+      ]
+    ],
+    [
+      [
+        "10:00",
+        "Marché de Testaccio",
+        "Balade gourmande · 1 h 30",
+        null,
+        null
+      ],
+      [
+        "12:30",
+        "Déjeuner à Testaccio",
+        "Pause déjeuner",
+        null,
+        null
+      ],
+      [
+        "16:00",
+        "Terrasse du Pincio",
+        "Promenade · 45 min",
+        null,
+        null
+      ]
+    ],
+    [
+      [
+        "10:00",
+        "Balade à Trastevere",
+        "Découverte du quartier · 1 h 30",
+        null,
+        null
+      ],
+      [
+        "13:00",
+        "Déjeuner d'adieu",
+        "Table pour 2",
+        null,
+        null
+      ],
+      [
+        "15:00",
+        "Temps libre",
+        "Derniers souvenirs",
+        null,
+        null
+      ]
+    ],
+    [
+      [
+        "10:00",
+        "Dernier cappuccino",
+        "Pause",
+        null,
+        null
+      ],
+      [
+        "11:30",
+        "Retour à Rome Termini",
+        "Transfert",
+        null,
+        null
+      ]
+    ]
+  ],
+  "alternatives": [
+    [
+      "Palatin",
+      "Site archéologique · 1 h 30"
+    ],
+    [
+      "Musée Capitolin",
+      "Musée · 2 h"
+    ],
+    [
+      "Château Saint-Ange",
+      "Monument · 1 h 30"
+    ],
+    [
+      "Campo de' Fiori",
+      "Marché · 1 h"
+    ]
+  ],
+  "suggestions": [
+    [
+      "Colisée de Rome",
+      "Visite guidée · 2 h",
+      "colisee-bw.jpg"
+    ],
+    [
+      "Fontaine de Trevi",
+      "Patrimoine · 30 min",
+      "trevi.jpg"
+    ],
+    [
+      "Terrasse du Pincio",
+      "Promenade · 45 min",
+      "pincio.jpg"
+    ],
+    [
+      "Galerie Borghèse",
+      "Musée · 2 h",
+      "borghese.jpg"
+    ],
+    [
+      "Balade le long du Tibre",
+      "Promenade · 1 h",
+      "tibre.jpg"
+    ],
+    [
+      "Découvrir Trastevere",
+      "Balade de quartier · 1 h 30",
+      "trastevere.jpg"
+    ]
+  ],
+  "before": [
+    [
+      "Visa",
+      "Vérifier les conditions"
+    ],
+    [
+      "Vaccins",
+      "Aucun requis"
+    ],
+    [
+      "eSIM",
+      "À commander"
+    ]
+  ]
+}

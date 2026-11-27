@@ -1,0 +1,80 @@
+[
+  {
+    "id": "rome",
+    "name": "Rome",
+    "country": "Italie",
+    "rating": "4,9",
+    "image": "rome.jpg",
+    "theme": "Culture & histoire",
+    "available": true
+  },
+  {
+    "id": "kyoto",
+    "name": "Kyoto",
+    "country": "Japon",
+    "rating": "4,8",
+    "image": "kyoto.jpg",
+    "theme": "Culture & histoire",
+    "available": false,
+    "blurb": "Temples, rues historiques et jardins. Commence par Higashiyama, puis poursuis vers Gion ou Arashiyama."
+  },
+  {
+    "id": "patagonie",
+    "name": "Patagonie",
+    "country": "Argentine",
+    "rating": "4,9",
+    "image": "patagonie.jpg",
+    "theme": "Aventure & trek",
+    "available": false,
+    "blurb": "Depuis El Chaltén, pars sur les sentiers du parc national Los Glaciares, entre lacs et sommets."
+  },
+  {
+    "id": "bali",
+    "name": "Bali",
+    "country": "Indonésie",
+    "rating": "4,8",
+    "image": "bali.jpg",
+    "theme": "Détente & nature",
+    "available": false
+  },
+  {
+    "id": "amsterdam",
+    "name": "Amsterdam",
+    "country": "Pays-Bas",
+    "rating": "4,8",
+    "image": null,
+    "available": false
+  },
+  {
+    "id": "athenes",
+    "name": "Athènes",
+    "country": "Grèce",
+    "rating": "4,8",
+    "image": null,
+    "available": false
+  },
+  {
+    "id": "barcelone",
+    "name": "Barcelone",
+    "country": "Espagne",
+    "rating": "4,9",
+    "image": null,
+    "available": false
+  },
+  {
+    "id": "berlin",
+    "name": "Berlin",
+    "country": "Allemagne",
+    "rating": "4,7",
+    "image": null,
+    "available": false
+  },
+  {
+    "id": "copenhague",
+    "name": "Copenhague",
+    "country": "Danemark",
+    "rating": "4,8",
+    "image": null,
+    "available": false
+  }
+]

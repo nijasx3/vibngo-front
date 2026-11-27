@@ -1,61 +1,77 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Check } from 'lucide-react';
-import { Button, Header, Spinner, cx } from '../components/ui';
-import { computeProfile, getQuestions } from '../api/mockApi';
+import { Button, Header, Logo, cx } from '../components/ui';
+import { QUESTIONS } from '../api/mockApi';
 import { useStore } from '../state/store';
-import type { Question } from '../types';
+
+export function QuizIntro() {
+  const nav = useNavigate();
+  const setProfile = useStore((s) => s.setProfile);
+  const setAnswers = useStore((s) => s.setAnswers);
+  const skip = () => { setAnswers([]); setProfile(null); nav('/home'); };
+  return (
+    <div className="flex flex-1 flex-col pb-6">
+      <div className="px-5 pt-4"><Logo /></div>
+      <div className="mt-8 flex-1 px-5">
+        <h1 className="t-title text-[28px]">Ton profil voyageur</h1>
+        <p className="t-body mt-3 text-[15px] text-muted">Dis-nous comment tu aimes voyager pour recevoir des idées adaptées à tes envies.</p>
+        <div className="mt-6 rounded-lg bg-sable p-5">
+          <div className="t-h3">{QUESTIONS.length} questions</div>
+          <p className="t-body mt-2 text-muted">Choisis une réponse par question. Tu pourras revenir en arrière pour la modifier.</p>
+          <p className="t-body mt-2 text-muted">La question sur les pays visités est facultative.</p>
+        </div>
+      </div>
+      <div className="flex flex-col gap-2 px-5">
+        <Button variant="secondary" onClick={skip}>Passer</Button>
+        <Button onClick={() => nav('/quiz')}>Commencer</Button>
+      </div>
+    </div>
+  );
+}
 
 export default function Quiz() {
   const nav = useNavigate();
-  const { setAnswers, setProfile } = useStore();
-  const [qs, setQs] = useState<Question[]>([]);
-  const [step, setStep] = useState(0);
-  const [answers, setLocal] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
+  const stored = useStore((s) => s.answers);
+  const setAnswers = useStore((s) => s.setAnswers);
+  const [i, setI] = useState(0);
+  const [picked, setPicked] = useState<string | null>(null);
+  const q = QUESTIONS[i];
+  // un retour sur le questionnaire repart de zéro si les réponses précédentes étaient complètes
+  useEffect(() => { if (stored.length === QUESTIONS.length) setAnswers([]); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => { getQuestions().then(setQs); }, []);
-  if (!qs.length) return null;
-
-  const q = qs[step];
-  const chosen = answers[step];
-
-  if (loading) return <div className="px-6 pt-24"><Spinner label="Nous analysons vos réponses…" /></div>;
-
-  const next = async () => {
-    if (step < qs.length - 1) { setStep(step + 1); return; }
-    setLoading(true);
-    const profile = await computeProfile(answers);
-    setAnswers(answers);
-    setProfile(profile.id);
-    nav('/result', { replace: true });
+  const choose = (key: string) => {
+    if (picked) return;
+    setPicked(key);
+    setTimeout(() => {
+      const next = [...stored.slice(0, i), key];
+      setAnswers(next);
+      setPicked(null);
+      if (i + 1 < QUESTIONS.length) setI(i + 1); else nav('/countries');
+    }, 220);
   };
+  const back = () => (i > 0 ? setI(i - 1) : nav('/intro'));
 
   return (
-    <div className="flex min-h-full flex-col">
-      <Header title="Votre profil voyageur" back={step > 0} onBack={() => setStep(step - 1)} />
-      <div className="px-4">
-        <div className="flex items-center gap-3" aria-label={`Question ${step + 1} sur ${qs.length}`}>
-          <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-line"><div className="h-full rounded-full bg-orange transition-all" style={{ width: `${((step + 1) / qs.length) * 100}%` }} /></div>
-          <span className="t-caption font-semibold text-brun">{step + 1}/{qs.length}</span>
+    <div className="flex flex-1 flex-col pb-6">
+      <div className="px-5 pt-4"><Logo /></div>
+      <Header onBack={back} />
+      <div className="px-5">
+        <p className="t-body text-muted">Question {i + 1} sur {QUESTIONS.length}</p>
+        <div className="mt-2 h-1.5 rounded-full bg-sable" role="progressbar" aria-valuemin={0} aria-valuemax={QUESTIONS.length} aria-valuenow={i + 1}>
+          <div className="h-full rounded-full bg-orange transition-all" style={{ width: `${((i + 1) / QUESTIONS.length) * 100}%` }} />
         </div>
-      </div>
-      <div className="flex flex-1 flex-col gap-5 px-4 pb-6 pt-6" key={q.id}>
-        <h2 className="t-hero fade-up text-brun">{q.text}</h2>
-        <div className="flex flex-col gap-2.5" role="radiogroup" aria-label={q.text}>
+        <h1 className="t-title mt-6 min-h-[96px] text-[26px] leading-[1.2]" data-testid="question">{q.text}</h1>
+        <div className="mt-5 flex flex-col gap-4">
           {q.options.map((o) => {
-            const on = chosen === o.key;
+            const on = (picked ?? stored[i]) === o.key;
             return (
-              <button key={o.key} role="radio" aria-checked={on} onClick={() => setLocal((a) => { const n = [...a]; n[step] = o.key; return n; })}
-                className={cx('t-body-m fade-up flex min-h-14 items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-left transition-colors', on ? 'border-orange bg-orange/10 text-brun' : 'border-line bg-white text-anthracite')}>
-                <span>{o.label}</span>
-                <span className={cx('flex h-6 w-6 shrink-0 items-center justify-center rounded-full border', on ? 'border-orange bg-orange text-white' : 'border-line')}>{on && <Check size={14} />}</span>
+              <button key={o.key} onClick={() => choose(o.key)} aria-pressed={on}
+                className={cx('flex min-h-[78px] items-center gap-5 rounded-xl px-5 text-left transition', on ? 'bg-brun text-white' : 'bg-sable')}>
+                <span className="w-4 font-mono text-[17px] font-bold">{o.key}</span>
+                <span className={cx('t-body flex-1 text-[16px]', on ? 'text-white' : 'text-muted')}>{o.label}</span>
               </button>
             );
           })}
-        </div>
-        <div className="mt-auto">
-          <Button full disabled={!chosen} onClick={next}>{step < qs.length - 1 ? 'Continuer' : 'Voir mon profil'}</Button>
         </div>
       </div>
     </div>

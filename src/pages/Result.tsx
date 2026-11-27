@@ -1,27 +1,44 @@
-import { useNavigate } from 'react-router-dom';
-import { Compass, Sparkles } from 'lucide-react';
-import { Button, Visual } from '../components/ui';
-import { PROFILES } from '../lib/scoring';
+import { useEffect, useState } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { Button, Header, img } from '../components/ui';
+import { computeProfile } from '../api/mockApi';
 import { useStore } from '../state/store';
+import type { Profile } from '../types';
 
 export default function Result() {
   const nav = useNavigate();
-  const user = useStore((s) => s.user);
-  const profile = PROFILES.find((p) => p.id === user?.traveler_type);
-  if (!profile) return null;
-  return (
-    <div className="flex min-h-full flex-col px-4 pb-8 pt-10">
-      <div className="fade-up flex flex-1 flex-col items-center gap-5 text-center">
-        <p className="t-greet text-orange">Votre profil voyageur</p>
-        <Visual tone="orange" className="h-32 w-32 rounded-full" icon={<Compass size={56} />} label="Profil voyageur" />
-        <h1 className="t-hero text-brun" style={{ fontSize: 24 }}>{profile.name}</h1>
-        <p className="t-body max-w-[300px] text-anthracite/90">{profile.description}</p>
-        <div className="t-body-m flex items-center gap-2 rounded-2xl bg-white px-4 py-3 text-left text-brun">
-          <Sparkles size={18} className="shrink-0 text-orange" />
-          <span>Vos recommandations et vos itinéraires seront adaptés à ce profil. Vous pourrez le modifier à tout moment dans les paramètres.</span>
-        </div>
+  const { answers, setProfile } = useStore();
+  const [profile, setLocal] = useState<Profile | null>(null);
+  const valid = answers.length === 12;
+  useEffect(() => {
+    if (!valid) return;
+    let on = true;
+    computeProfile(answers).then((p) => { if (on) { setLocal(p); setProfile(p.id); } });
+    return () => { on = false; };
+  }, [valid]); // eslint-disable-line react-hooks/exhaustive-deps
+  if (!valid) return <Navigate to="/intro" replace />;
+
+  if (!profile) {
+    return (
+      <div role="status" aria-live="polite" className="flex flex-1 flex-col items-center justify-center gap-5 px-8 text-center">
+        <img src={img('vibi.png')} alt="" className="h-32" />
+        <div className="spin h-8 w-8 rounded-full border-4 border-sable border-t-orange" />
+        <h1 className="t-h3 text-[18px]">Vibi analyse tes réponses…</h1>
+        <p className="t-body text-muted">Ton profil voyageur arrive dans un instant.</p>
       </div>
-      <Button full className="mt-6" onClick={() => nav('/home', { replace: true })}>Découvrir VibnGO</Button>
+    );
+  }
+  return (
+    <div className="fade-up flex flex-1 flex-col pb-6">
+      <Header onBack={() => nav('/countries')} />
+      <div className="flex flex-1 flex-col items-center px-5 text-center">
+        <p className="t-label text-[12px] font-normal tracking-wide text-muted">TON PROFIL VOYAGEUR</p>
+        <h1 data-testid="profile-name" className="t-title mt-2 text-[28px]">{profile.name}</h1>
+        <img src={img(profile.image)} alt="" className="mt-4 h-[210px] w-auto" />
+        <div className="mt-4 w-full rounded-lg bg-sable px-6 py-7"><p className="t-body text-[16px] text-muted">{profile.description}</p></div>
+        <p className="t-body mt-5 max-w-[300px] text-muted">Ton profil est enregistré. Découvre les destinations proposées pour toi.</p>
+      </div>
+      <div className="px-5 pt-4"><Button onClick={() => nav('/destinations')}>Voir les recommandations</Button></div>
     </div>
   );
 }
