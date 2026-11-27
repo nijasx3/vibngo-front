@@ -9,9 +9,9 @@ const HIDE_NAV = ['/', '/signup', '/intro', '/quiz', '/countries', '/result', '/
 const SECTIONS: { to: string; label: string; match: string[] }[] = [
   { to: '/home', label: 'Accueil', match: ['/home', '/discover'] },
   { to: '/explore', label: 'Explorer', match: ['/explore', '/place', '/destination', '/event'] },
-  { to: '/create', label: 'Créer', match: ['/create', '/proposal', '/modify', '/transport', '/manual', '/trip-saved'] },
+  { to: '/create', label: 'Créer', match: ['/create', '/proposal', '/modify', '/transport', '/manual', '/trip-saved', '/plan'] },
   { to: '/community', label: 'Communauté', match: ['/community'] },
-  { to: '/profile', label: 'Profil', match: ['/profile', '/settings', '/saved', '/network', '/trips', '/trip'] },
+  { to: '/profile', label: 'Profil', match: ['/profile', '/settings', '/saved', '/network', '/trips', '/trip', '/upcoming', '/carnet', '/leg'] },
 ];
 const ICONS = [House, Search, Plus, Users, User];
 

@@ -20,11 +20,15 @@ export interface EventItem {
   meeting?: string; meetingAddress?: string; meetingNote?: string; practical?: string;
 }
 
-export interface Stop { id: string; time: string; title: string; sub: string; tag?: string; walk?: string }
+export interface Stop { id: string; time: string; title: string; sub: string; tag?: string }
+export type LegMode = 'walk' | 'bus' | 'taxi';
 export interface Itinerary {
   id: string; title: string; destination: string; startDate: string; endDate: string; travelers: number;
   budget: string; transportOut: string; transportBack: string; lodging: string;
   days: Stop[][]; saved: boolean; source: 'vibi' | 'manual';
+  /** mode de déplacement choisi par trajet (clé « départ|arrivée »), « À pied » par défaut */
+  legModes: Record<string, LegMode>;
+  interests?: string[];
 }
 export interface Draft {
   destination: string; startDate: string; endDate: string; budget: string;
@@ -37,4 +41,7 @@ export interface Parameters {
   notif: boolean; itineraryChanges: boolean; friendActivity: boolean;
 }
 /** Activité à laquelle l'utilisateur est inscrit (forme du Word : name, offered_by, subscriptions, date). */
+export interface Souvenir { id: string; date: string; title: string; text: string; feeling: string; photos: string[] }
+export interface Reminder { id: string; title: string; date: string; time: string }
+export interface Collab { friendId: string; name: string; access: 'edit' | 'view'; status: 'pending' | 'accepted' }
 export interface UserActivity { id: string; name: string; offered_by: string; subscriptions: number; date: string }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { Plus, Search } from 'lucide-react';
 import { Button, Field, Footer, Header, ListRow, PickerSheet, Sheet, StepBadge } from '../components/ui';
-import { tripTemplate } from '../api/mockApi';
+import { placeById, tripTemplate } from '../api/mockApi';
 import { buildManualItinerary, emptyDays, uid } from '../lib/itinerary';
 import { useStore } from '../state/store';
 import { addDays, fmtLong, fmtRange, parseISO, iso, today } from '../lib/dates';
@@ -16,6 +16,8 @@ const LODGING = ['Hôtel · Centre-ville', 'Appartement', 'Auberge', 'À décide
 export function ManualForm() {
   const nav = useNavigate();
   const { draft, setDraft } = useStore();
+  const placeId = useSearchParams()[0].get('place');
+  const place = placeId ? placeById(placeId) : undefined;
   const [pick, setPick] = useState<null | 'budget' | 'out' | 'back' | 'lodging' | 'dates'>(null);
   const [dates, setDates] = useState({ s: draft.startDate, e: draft.endDate });
   const min = iso(today());
@@ -23,7 +25,7 @@ export function ManualForm() {
   const applyDates = () => { setDraft({ startDate: dates.s, endDate: dates.e, days: emptyDays(dates.s, dates.e) }); setPick(null); };
   return (
     <>
-      <Header title="Créer un voyage" subtitle="Destination, dates et budget" onBack={() => nav('/create')} />
+      <Header title="Créer un voyage" subtitle={place ? `Première étape · ${place.name}` : 'Destination, dates et budget'} onBack={() => nav(place ? `/plan?place=${place.id}` : '/create')} />
       <div className="flex flex-col gap-2.5 px-5 pb-4">
         <Field accent label="Destination" value={draft.destination} />
         <Field label="Dates" value={fmtRange(parseISO(draft.startDate), parseISO(draft.endDate))} onClick={() => { setDates({ s: draft.startDate, e: draft.endDate }); setPick('dates'); }} />
@@ -33,7 +35,7 @@ export function ManualForm() {
         <Field label="Hébergement" value={draft.lodging} onClick={() => setPick('lodging')} />
       </div>
       <div className="flex-1" />
-      <Footer><Button data-testid="continue" onClick={() => nav('/manual/program')}>Continuer</Button></Footer>
+      <Footer><Button data-testid="continue" onClick={() => nav(place ? `/plan/visit?place=${place.id}&target=draft` : '/manual/program')}>Continuer</Button></Footer>
       <PickerSheet open={pick === 'budget'} onClose={() => setPick(null)} title="Budget" options={BUDGETS} value={draft.budget} onPick={(v) => setDraft({ budget: v })} />
       <PickerSheet open={pick === 'out'} onClose={() => setPick(null)} title="Transport aller" options={OUT} value={draft.transportOut} onPick={(v) => setDraft({ transportOut: v })} />
       <PickerSheet open={pick === 'back'} onClose={() => setPick(null)} title="Ville de retour" options={BACK} value={draft.transportBack} onPick={(v) => setDraft({ transportBack: v })} />

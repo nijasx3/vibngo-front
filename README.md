@@ -3,7 +3,7 @@
 Prototype mobile (responsive) de l'application **VibnGO**, développé en React avec des **données mockées** (fichiers JSON).
 Il reprend la **refonte mobile** du design (export « VibnGo — Refonte mobile ») et sert à faire tester l'application à un panel d'utilisateurs : une seule destination (**Rome**), aucun appel réseau.
 
-> **Avancement de la refonte — Lot 1/3** : nouveau style + les 6 parcours de test. Les lots 2 (voyages, carnet, réservations, déplacements, collaboration) et 3 (messages, trophées/récompenses, notifications) arrivent ensuite ; les entrées correspondantes affichent « Bientôt disponible ».
+> **Avancement de la refonte — Lots 1 et 2 sur 3** : nouveau style, les 6 parcours de test, puis voyages, carnet, réservations, déplacements et collaboration. Le lot 3 (messages, trophées/récompenses, notifications) arrive ensuite ; les entrées correspondantes affichent « Bientôt disponible ».
 
 ## Lancer le projet
 
@@ -45,6 +45,21 @@ Outils pour les tests (Profil → ⚙ Paramètres → *Outils de test*, hors des
 
 Pour voir l'accueil **avant départ** (compte à rebours J−N), créer un voyage « sans Vibi » avec des dates futures.
 
+## Lot 2 : voyages, carnet, réservations, déplacements, collaboration
+
+| Écran | Chemin | Remarques |
+|-------|--------|-----------|
+| Mes voyages | Profil → Mes voyages | En cours / À venir. Tokyo, Kyoto et Bali (exemples du design) n'apparaissent qu'après l'enregistrement d'un premier voyage ; Tokyo a un détail, Kyoto et Bali renvoient à « Bientôt » |
+| Voyage à Rome | Mes voyages → Rome | Pastilles Carte / Réservations / Collaborer, bouton « Ouvrir le carnet », trajets cliquables |
+| Mode de déplacement | toucher un trajet du programme | À pied / Bus / Taxi, mémorisé par trajet (le jour 1 uniquement : seules les durées du design existent) |
+| Carte du voyage | pastille Carte | « Depuis ma position » → Détail du trajet → Comparer les modes (valeurs d'exemple) |
+| Réservations | pastille Réservations | Vol AF1234 / réf. AB12CD, hébergement, rappel pour « Visite du Forum romain » |
+| Collaborer | pastille Collaborer | Choix d'un viber de ton réseau, invitation, puis acceptation **simulée au bout de 8 s** |
+| Carnet de voyage | « Ouvrir le carnet » | Souvenirs (titre, texte, ressenti, 0 à 3 photos choisies sur l'appareil), visibilité privé/public, aperçu et export PDF **simulé** |
+| Choisir un voyage / Planifier la visite | fiche d'un lieu → « Ajouter à un itinéraire » | Ajoute au voyage existant, ou démarre « Créer un voyage » avec cette première étape |
+
+Les photos d'un souvenir restent en mémoire (comme le reste : un rafraîchissement remet tout à zéro).
+
 ## Données mockées (`src/mocks/`)
 
 | Fichier | Contenu |
@@ -55,7 +70,7 @@ Pour voir l'accueil **avant départ** (compte à rebours J−N), créer un voyag
 | `destinations.json` | destinations du design (Rome, Kyoto, Patagonie, Bali…) – seule Rome est ouverte |
 | `places.json` | destination Rome + lieux (Colisée, Trevi, Pincio, Musée Borghèse…) + hébergements |
 | `explore.json` | activités, vibers (utilisateurs) et événements de l'onglet Explorer |
-| `trip.json` | itinéraire de Rome (8 jours), alternatives pour « Changer », suggestions d'activités |
+| `trip.json` | itinéraire de Rome (8 jours), trajets par mode, comparaison, réservations, voyages à venir, ressentis, alternatives pour « Changer », suggestions d'activités |
 | `community.json` | fil de la Communauté, invitation de Tom Bernard (`subscriptions`), amis |
 | `chatbot.json` | réponses scriptées de Vibi |
 
@@ -82,4 +97,5 @@ Vite · React 18 · TypeScript · React Router (HashRouter) · Tailwind CSS v4 �
 - Vibi est scripté : en création, n'importe quel message produit l'itinéraire de Rome, départ aujourd'hui, 2 voyageurs ; l'assistant général répond aux suggestions.
 - Plan du jour : illustration schématique (pas de fond de carte).
 - Réorganiser le programme se fait avec des boutons ↑ ↓ (pas de glisser-déposer).
-- Réservation, publication, stories, messages, notifications, trophées, carnet, réservations, déplacements, collaboration : Lots 2 et 3 (ou simulés par un message).
+- Export PDF du carnet, acceptation de l'invitation et réservations : simulés. Le changement de mode de déplacement ne décale pas les horaires.
+- Messages, notifications, trophées/récompenses : Lot 3.

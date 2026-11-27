@@ -5,7 +5,7 @@ import { Button, Photo, SectionTitle, StepBadge, TopBar, cx } from '../component
 import MiniMap from '../components/MiniMap';
 import { DESTINATIONS, communityData, profileById, rome, tripTemplate } from '../api/mockApi';
 import { useStore } from '../state/store';
-import { dayIndex, delayStop, postponeStop, replaceStop } from '../lib/itinerary';
+import { dayIndex, delayStop, postponeStop, replaceStop, tripNights } from '../lib/itinerary';
 import { diffDays, fmtDayMonth, fmtLong, fmtRange, parseISO, addDays, today } from '../lib/dates';
 import type { Itinerary } from '../types';
 
@@ -62,7 +62,7 @@ function EmptyHome({ name, ids }: { name: string; ids: string[] }) {
 function BeforeHome({ name, it, ids, profileName }: { name: string; it: Itinerary; ids: string[]; profileName?: string }) {
   const nav = useNavigate();
   const days = diffDays(parseISO(it.startDate), today());
-  const nDays = it.days.length;
+  const nDays = tripNights(it);
   const c = communityData.liked;
   return (
     <>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addStop, buildVibiItinerary, delayStop, emptyDays, moveStop, postponeStop, removeStop, replaceStop } from './itinerary';
+import { addStop, buildVibiItinerary, delayStop, emptyDays, legOptions, legText, moveStop, postponeStop, removeStop, replaceStop, setLegMode } from './itinerary';
 
 const titles = (t: ReturnType<typeof buildVibiItinerary>, d = 0) => t.days[d].map((s) => s.title);
 
@@ -11,11 +11,11 @@ describe('itinéraire proposé par Vibi', () => {
     expect(titles(trip)[0]).toBe('Colisée de Rome');
     expect(trip.days[0]).toHaveLength(7);
   });
-  it('réorganiser garde les horaires par emplacement et retire les trajets à pied', () => {
+  it('réorganiser garde les horaires par emplacement', () => {
     const moved = moveStop(trip, 0, 1, 2); // Travertino ↔ Forum
     expect(titles(moved).slice(0, 3)).toEqual(['Colisée de Rome', 'Forum Romain', 'Travertino Restaurant']);
     expect(moved.days[0].map((s) => s.time).slice(0, 3)).toEqual(['09:00', '12:30', '15:00']);
-    expect(moved.days[0][1].walk).toBeUndefined();
+    expect(legOptions(moved.days[0][1], moved.days[0][2])).toBeNull(); // paire inconnue : pas de trajet affiché
     expect(trip.days[0][1].title).toBe('Travertino Restaurant'); // l'original n'est pas muté
   });
   it('retarde de 1 h, plafonné à 23 h', () => {
@@ -53,5 +53,22 @@ describe('brouillon manuel', () => {
     let t = buildVibiItinerary('2026-07-04');
     t = addStop(t, 1, { id: 'a', time: '08:00', title: 'Tôt', sub: '' });
     expect(t.days[1][0].title).toBe('Tôt');
+  });
+});
+
+describe('trajets entre étapes', () => {
+  const trip = buildVibiItinerary('2026-07-04');
+  const [a, b] = trip.days[0];
+  it('affiche « À pied » par défaut, avec distance et durée du design', () => {
+    expect(legText(trip, a, b)).toBe('À pied · 600 m · 8 min');
+  });
+  it('change le mode sans muter l’original', () => {
+    const bus = setLegMode(trip, a, b, 'bus');
+    expect(legText(bus, a, b)).toBe('Bus · 900 m · 10 min');
+    expect(legText(setLegMode(bus, a, b, 'taxi'), a, b)).toBe('Taxi · 1,1 km · 5 min');
+    expect(legText(trip, a, b)).toBe('À pied · 600 m · 8 min');
+  });
+  it('ne propose pas de trajet pour une paire hors modèle', () => {
+    expect(legText(trip, trip.days[1][0], trip.days[1][1])).toBeNull();
   });
 });

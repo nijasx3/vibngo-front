@@ -7,7 +7,12 @@
     "out": "Train · Paris → Rome Termini",
     "back": "Train · Rome Termini → Paris",
     "hotel": "Hôtel Colosseum Palace · 7 nuits",
-    "lunch": "Déjeuner chez Travertino"
+    "lunch": "Déjeuner chez Travertino",
+    "flightOut": {
+      "label": "Paris CDG → Rome Fiumicino",
+      "flight": "AF1234",
+      "ref": "AB12CD"
+    }
   },
   "days": [
     [
@@ -15,49 +20,42 @@
         "09:00",
         "Colisée de Rome",
         "Visite guidée · 2 h",
-        "À pied · 600 m · 8 min",
         "Payé"
       ],
       [
         "12:30",
         "Travertino Restaurant",
         "Déjeuner · Table pour 2",
-        "À pied · 800 m · 11 min",
         null
       ],
       [
         "15:00",
         "Forum Romain",
         "Site archéologique · 1 h 30 · Gratuit",
-        "À pied · 1,2 km · 16 min",
         null
       ],
       [
         "16:30",
         "Pause gelato près du Panthéon",
         "Pause",
-        "À pied · 500 m · 7 min",
         null
       ],
       [
         "18:00",
         "Balade autour de la Piazza Navona",
         "Fin d'après-midi",
-        null,
         null
       ],
       [
         "19:30",
         "Dîner à Trastevere",
         "Soir",
-        null,
         null
       ],
       [
         "21:00",
         "Promenade le long du Tibre",
         "Fin de journée",
-        null,
         null
       ]
     ],
@@ -66,28 +64,24 @@
         "09:00",
         "Musées du Vatican",
         "Visite · 3 h",
-        null,
         "Payé"
       ],
       [
         "13:00",
         "Déjeuner près du Vatican",
         "Pause déjeuner",
-        null,
         null
       ],
       [
         "15:30",
         "Basilique Saint-Pierre",
         "Monument · 1 h 30",
-        null,
         null
       ],
       [
         "18:30",
         "Aperitivo au coucher du soleil",
         "Soir",
-        null,
         null
       ]
     ],
@@ -96,21 +90,18 @@
         "10:00",
         "Via Appia Antica à vélo",
         "Activité · 3 h",
-        null,
         null
       ],
       [
         "14:00",
         "Cours de cuisine : pâtes fraîches",
         "Atelier · 2 h 30",
-        null,
         null
       ],
       [
         "17:30",
         "Villa Borghese et son parc",
         "Promenade · 1 h 30",
-        null,
         null
       ]
     ],
@@ -119,28 +110,24 @@
         "09:30",
         "Musée Borghèse",
         "Musée · 2 h",
-        null,
         null
       ],
       [
         "12:30",
         "Déjeuner à Monti",
         "Pause déjeuner",
-        null,
         null
       ],
       [
         "15:00",
         "Place d'Espagne",
         "Monument · 1 h",
-        null,
         null
       ],
       [
         "16:30",
         "Fontaine de Trevi",
         "Patrimoine · 30 min",
-        null,
         null
       ]
     ],
@@ -149,21 +136,18 @@
         "10:00",
         "Visite des Catacombes",
         "Visite guidée · 1 h 30",
-        null,
         null
       ],
       [
         "13:00",
         "Déjeuner sur la Via Appia",
         "Pause déjeuner",
-        null,
         null
       ],
       [
         "15:30",
         "Panthéon",
         "Monument · 1 h",
-        null,
         null
       ]
     ],
@@ -172,21 +156,18 @@
         "10:00",
         "Marché de Testaccio",
         "Balade gourmande · 1 h 30",
-        null,
         null
       ],
       [
         "12:30",
         "Déjeuner à Testaccio",
         "Pause déjeuner",
-        null,
         null
       ],
       [
         "16:00",
         "Terrasse du Pincio",
         "Promenade · 45 min",
-        null,
         null
       ]
     ],
@@ -195,21 +176,18 @@
         "10:00",
         "Balade à Trastevere",
         "Découverte du quartier · 1 h 30",
-        null,
         null
       ],
       [
         "13:00",
         "Déjeuner d'adieu",
         "Table pour 2",
-        null,
         null
       ],
       [
         "15:00",
         "Temps libre",
         "Derniers souvenirs",
-        null,
         null
       ]
     ],
@@ -218,14 +196,12 @@
         "10:00",
         "Dernier cappuccino",
         "Pause",
-        null,
         null
       ],
       [
         "11:30",
         "Retour à Rome Termini",
         "Transfert",
-        null,
         null
       ]
     ]
@@ -293,5 +269,247 @@
       "eSIM",
       "À commander"
     ]
-  ]
+  ],
+  "legs": {
+    "Colisée de Rome|Travertino Restaurant": {
+      "walk": [
+        "600 m",
+        "8 min"
+      ],
+      "bus": [
+        "900 m",
+        "10 min"
+      ],
+      "taxi": [
+        "1,1 km",
+        "5 min"
+      ]
+    },
+    "Travertino Restaurant|Forum Romain": {
+      "walk": [
+        "800 m",
+        "11 min"
+      ],
+      "bus": [
+        "1,2 km",
+        "12 min"
+      ],
+      "taxi": [
+        "1,5 km",
+        "7 min"
+      ]
+    },
+    "Forum Romain|Pause gelato près du Panthéon": {
+      "walk": [
+        "1,2 km",
+        "16 min"
+      ],
+      "bus": [
+        "1,5 km",
+        "15 min"
+      ],
+      "taxi": [
+        "1,8 km",
+        "8 min"
+      ]
+    },
+    "Pause gelato près du Panthéon|Balade autour de la Piazza Navona": {
+      "walk": [
+        "500 m",
+        "7 min"
+      ],
+      "bus": [
+        "850 m",
+        "10 min"
+      ],
+      "taxi": [
+        "900 m",
+        "5 min"
+      ]
+    },
+    "Balade autour de la Piazza Navona|Dîner à Trastevere": {
+      "walk": [
+        "1,4 km",
+        "19 min"
+      ],
+      "bus": [
+        "1,8 km",
+        "15 min"
+      ],
+      "taxi": [
+        "2,2 km",
+        "10 min"
+      ]
+    },
+    "Dîner à Trastevere|Promenade le long du Tibre": {
+      "walk": [
+        "500 m",
+        "7 min"
+      ],
+      "bus": [
+        "700 m",
+        "9 min"
+      ],
+      "taxi": [
+        "800 m",
+        "5 min"
+      ]
+    }
+  },
+  "compare": [
+    [
+      "À pied",
+      "1,2 km",
+      "16 min",
+      ""
+    ],
+    [
+      "Vélo",
+      "1,3 km",
+      "7 min",
+      ""
+    ],
+    [
+      "Métro",
+      "1,6 km",
+      "12 min",
+      "Marche incluse"
+    ],
+    [
+      "Tram",
+      "1,5 km",
+      "14 min",
+      "Marche incluse"
+    ],
+    [
+      "Bus",
+      "1,7 km",
+      "15 min",
+      "Marche incluse"
+    ],
+    [
+      "Taxi / voiture",
+      "1,8 km",
+      "9 min",
+      ""
+    ],
+    [
+      "Train",
+      null,
+      null,
+      "Aucun trajet proposé pour cette destination"
+    ]
+  ],
+  "feelings": [
+    "Émerveillement",
+    "Magnifique",
+    "Spirituel",
+    "Détente",
+    "Joie",
+    "Curiosité"
+  ],
+  "toBook": [
+    "Visite du Forum romain"
+  ],
+  "bookings": {
+    "out": {
+      "title": "Vol aller",
+      "route": "Paris CDG → Rome Fiumicino",
+      "flight": "AF1234",
+      "ref": "AB12CD"
+    },
+    "back": {
+      "title": "Vol retour",
+      "route": "Rome Fiumicino → Paris CDG"
+    },
+    "hotel": {
+      "title": "Hébergement",
+      "text": "Hôtel Colosseum Palace"
+    }
+  },
+  "short": {
+    "Colisée de Rome": "Colisée",
+    "Travertino Restaurant": "Travertino",
+    "Forum Romain": "Forum romain",
+    "Pause gelato près du Panthéon": "Pause gelato",
+    "Balade autour de la Piazza Navona": "Piazza Navona",
+    "Dîner à Trastevere": "Trastevere",
+    "Promenade le long du Tibre": "Le Tibre"
+  },
+  "durations": [
+    "30 min",
+    "1 h",
+    "1 h 30",
+    "2 h",
+    "3 h"
+  ],
+  "upcoming": [
+    {
+      "id": "tokyo",
+      "title": "Tokyo, Japon",
+      "image": "tokyo.jpg",
+      "offset": 42,
+      "nights": 10,
+      "detail": true
+    },
+    {
+      "id": "kyoto",
+      "title": "Kyoto, Japon",
+      "image": "kyoto.jpg",
+      "offset": 64,
+      "nights": 4,
+      "detail": false
+    },
+    {
+      "id": "bali",
+      "title": "Bali, Indonésie",
+      "image": "bali.jpg",
+      "offset": 100,
+      "nights": 10,
+      "detail": false
+    }
+  ],
+  "tokyo": {
+    "before": [
+      [
+        "Visa",
+        "Vérifier les conditions"
+      ],
+      [
+        "Vaccins",
+        "Vérifier les recommandations"
+      ],
+      [
+        "eSIM",
+        "Choisir un forfait"
+      ]
+    ],
+    "program": [
+      [
+        "10:00",
+        "Arrivée à Tokyo",
+        "Aéroport"
+      ],
+      [
+        "11:30",
+        "Trajet jusqu’à l’hôtel",
+        "Transfert"
+      ],
+      [
+        "13:00",
+        "Déjeuner à Asakusa",
+        "Pause déjeuner"
+      ],
+      [
+        "14:30",
+        "Visite du Sensō-ji",
+        "Temple · Asakusa"
+      ],
+      [
+        "16:30",
+        "Balade le long de la Sumida",
+        "Promenade"
+      ]
+    ]
+  }
 }

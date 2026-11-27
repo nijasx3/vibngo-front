@@ -5,7 +5,6 @@ import { Avatar, Button, Header, Photo, SectionTitle, Sheet, Stars, Tabs, cx } f
 import { eventById, placeById, profileById } from '../api/mockApi';
 import { useStore } from '../state/store';
 import { addDays, monthAbbr, today } from '../lib/dates';
-import { addStop, dayIndex, uid } from '../lib/itinerary';
 
 const TABS = ['Infos', 'Photos', 'Avis', 'Événements'];
 const fmtN = (n: number) => n.toLocaleString('fr-FR').replace(/ /g, ' ');
@@ -14,7 +13,7 @@ export default function Place() {
   const { id = '' } = useParams();
   const nav = useNavigate();
   const place = placeById(id);
-  const { user, toggleLike, reviews, addReview, showToast, updateItinerary } = useStore();
+  const { user, toggleLike, reviews, addReview, showToast } = useStore();
   const [tab, setTab] = useState('Infos');
   const [writing, setWriting] = useState(false);
   const [stars, setStars] = useState(5);
@@ -27,11 +26,7 @@ export default function Place() {
   const profile = profileById(user?.traveler_type ?? null);
 
   const addToTrip = () => {
-    const it = user?.current_itinerary;
-    if (!it) return showToast('Crée d’abord un voyage pour y ajouter ce lieu.');
-    const di = Math.min(Math.max(dayIndex(it), 0), it.days.length - 1);
-    updateItinerary((x) => addStop(x, di, { id: uid(), time: '17:00', title: place.name, sub: `${place.typeLabel} · Rome` }));
-    showToast(`${place.name} ajouté à ton programme`);
+    nav(`/plan?place=${place.id}`);
   };
   const publish = () => {
     if (!text.trim()) return;
