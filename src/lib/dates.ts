@@ -19,3 +19,5 @@ export const fmtRange = (a: Date, b: Date) =>
     ? `${a.getDate()}–${b.getDate()} ${MONTHS[b.getMonth()]} ${b.getFullYear()}`
     : `${a.getDate()} ${SHORT[a.getMonth()]} – ${b.getDate()} ${SHORT[b.getMonth()]} ${b.getFullYear()}`;
 export const fmtDayMonth = (d: Date) => `${d.getDate()} ${MONTHS[d.getMonth()]}`;
+/** « 4 juil. » */
+export const fmtDayShort = (d: Date) => `${d.getDate()} ${SHORT[d.getMonth()]}`;

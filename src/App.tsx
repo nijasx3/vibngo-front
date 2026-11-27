@@ -28,6 +28,13 @@ import Proposal from './pages/Proposal';
 import Modify from './pages/Modify';
 import Transport from './pages/Transport';
 import { ManualActivityForm, ManualAdd, ManualForm, ManualFree, ManualProgram } from './pages/Manual';
+import Upcoming from './pages/Upcoming';
+import TripMap from './pages/TripMap';
+import { Bookings, Flight, ReminderDone, ReminderForm } from './pages/Bookings';
+import { Leg, RouteCompare, RouteDetail } from './pages/Routes';
+import Collaborate from './pages/Collaborate';
+import { Carnet, CarnetPreview, CarnetVisibility, SouvenirForm } from './pages/Carnet';
+import { ChooseTrip, PlanVisit } from './pages/PlanVisit';
 import Soon from './pages/Soon';
 
 export default function App() {
@@ -57,6 +64,23 @@ export default function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/trips" element={<Trips />} />
           <Route path="/trip" element={<Trip />} />
+          <Route path="/upcoming/:id" element={<Upcoming />} />
+          <Route path="/trip/map" element={<TripMap />} />
+          <Route path="/trip/bookings" element={<Bookings />} />
+          <Route path="/trip/flight" element={<Flight />} />
+          <Route path="/trip/reminder" element={<ReminderForm />} />
+          <Route path="/trip/reminder-done" element={<ReminderDone />} />
+          <Route path="/trip/route" element={<RouteDetail />} />
+          <Route path="/trip/compare" element={<RouteCompare />} />
+          <Route path="/trip/collaborate" element={<Collaborate />} />
+          <Route path="/leg" element={<Leg />} />
+          <Route path="/carnet" element={<Carnet />} />
+          <Route path="/carnet/new" element={<SouvenirForm />} />
+          <Route path="/carnet/edit/:id" element={<SouvenirForm />} />
+          <Route path="/carnet/preview" element={<CarnetPreview />} />
+          <Route path="/carnet/visibility" element={<CarnetVisibility />} />
+          <Route path="/plan" element={<ChooseTrip />} />
+          <Route path="/plan/visit" element={<PlanVisit />} />
           <Route path="/trip-saved" element={<TripSaved />} />
           <Route path="/create" element={<Create />} />
           <Route path="/create/vibi" element={<Vibi mode="create" />} />
